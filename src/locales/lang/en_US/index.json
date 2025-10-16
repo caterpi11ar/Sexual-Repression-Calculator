@@ -1036,5 +1036,12 @@
   "options.likert.disagree": "Disagree",
   "options.likert.neutral": "Neutral",
   "options.likert.agree": "Agree",
-  "options.likert.strongly_agree": "Strongly Agree"
+  "options.likert.strongly_agree": "Strongly Agree",
+
+
+  "options.frequency.never": "Never",
+  "options.frequency.rarely": "Rarely",
+  "options.frequency.sometimes": "Sometimes",
+  "options.frequency.often": "Often",
+  "options.frequency.always": "Always"
 }

@@ -1021,5 +1021,12 @@
   "options.likert.disagree": "不同意",
   "options.likert.neutral": "中立",
   "options.likert.agree": "同意",
-  "options.likert.strongly_agree": "非常同意"
+  "options.likert.strongly_agree": "非常同意",
+
+
+  "options.frequency.never": "从不",
+  "options.frequency.rarely": "很少",
+  "options.frequency.sometimes": "有时",
+  "options.frequency.often": "经常",
+  "options.frequency.always": "总是"
 }
