@@ -5,7 +5,7 @@
 
 import { AssessmentSession, SRI_LEVELS, SRIResult } from '@/types';
 import { getAssessmentSession } from '@/lib/storage';
-import i18n from '@/locales/i18n';
+import { t } from '@/locales/i18n';
 
 /**
  * 生成分享文案
@@ -15,7 +15,7 @@ import i18n from '@/locales/i18n';
  */
 export function generateShareText(session: AssessmentSession): string {
   if (!session.results) {
-    return i18n.t('shareUtils.defaultText');
+    return t('shareUtils.defaultText');
   }
 
   const sri = session.results.sri;
@@ -24,36 +24,36 @@ export function generateShareText(session: AssessmentSession): string {
 
   const templates = {
     'very-low': [
-      i18n.t('shareUtils.templates.veryLow.1', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.veryLow.2', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.veryLow.3', { score, level: levelInfo.label })
+      t('shareUtils.templates.veryLow.1', { score, level: levelInfo.label }),
+      t('shareUtils.templates.veryLow.2', { score, level: levelInfo.label }),
+      t('shareUtils.templates.veryLow.3', { score, level: levelInfo.label })
     ],
     'low': [
-      i18n.t('shareUtils.templates.low.1', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.low.2', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.low.3', { score, level: levelInfo.label })
+      t('shareUtils.templates.low.1', { score, level: levelInfo.label }),
+      t('shareUtils.templates.low.2', { score, level: levelInfo.label }),
+      t('shareUtils.templates.low.3', { score, level: levelInfo.label })
     ],
     'moderate': [
-      i18n.t('shareUtils.templates.moderate.1', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.moderate.2', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.moderate.3', { score, level: levelInfo.label })
+      t('shareUtils.templates.moderate.1', { score, level: levelInfo.label }),
+      t('shareUtils.templates.moderate.2', { score, level: levelInfo.label }),
+      t('shareUtils.templates.moderate.3', { score, level: levelInfo.label })
     ],
     'high': [
-      i18n.t('shareUtils.templates.high.1', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.high.2', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.high.3', { score, level: levelInfo.label })
+      t('shareUtils.templates.high.1', { score, level: levelInfo.label }),
+      t('shareUtils.templates.high.2', { score, level: levelInfo.label }),
+      t('shareUtils.templates.high.3', { score, level: levelInfo.label })
     ],
     'very-high': [
-      i18n.t('shareUtils.templates.veryHigh.1', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.veryHigh.2', { score, level: levelInfo.label }),
-      i18n.t('shareUtils.templates.veryHigh.3', { score, level: levelInfo.label })
+      t('shareUtils.templates.veryHigh.1', { score, level: levelInfo.label }),
+      t('shareUtils.templates.veryHigh.2', { score, level: levelInfo.label }),
+      t('shareUtils.templates.veryHigh.3', { score, level: levelInfo.label })
     ]
   };
 
   const levelTemplates = templates[sri.level];
   const randomTemplate = levelTemplates[Math.floor(Math.random() * levelTemplates.length)];
 
-  return `${randomTemplate}\n\n${i18n.t('shareUtils.suffix')}`;
+  return `${randomTemplate}\n\n${t('shareUtils.suffix')}`;
 }
 
 /**
@@ -67,7 +67,7 @@ export function generateShareUrl(sessionId: string): string {
   // 获取会话数据
   const session = getAssessmentSession(sessionId);
   if (!session || !session.results) {
-    throw new Error(i18n.t('shareUtils.error.sessionNotFound'));
+    throw new Error(t('shareUtils.error.sessionNotFound'));
   }
 
   // 创建分享数据对象（只包含展示需要的数据）
@@ -114,7 +114,7 @@ export async function copyToClipboard(text: string): Promise<void> {
   try {
     document.execCommand('copy');
   } catch {
-    throw new Error(i18n.t('calculator.error.copyFailed'));
+    throw new Error(t('calculator.error.copyFailed'));
   } finally {
     document.body.removeChild(textArea);
   }
@@ -157,7 +157,7 @@ function generateSimpleQRCode(): string {
   const ctx = canvas.getContext('2d');
 
   if (!ctx) {
-    throw new Error(i18n.t('calculator.error.canvasFailed'));
+    throw new Error(t('calculator.error.canvasFailed'));
   }
 
   // 设置画布尺寸
@@ -212,7 +212,7 @@ function generateSimpleQRCode(): string {
   ctx.fillStyle = '#666666';
   ctx.font = '12px Arial, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(i18n.t('component.loadingScreen.qrCodeText'), canvas.width / 2, canvas.height - 15);
+  ctx.fillText(t('component.loadingScreen.qrCodeText'), canvas.width / 2, canvas.height - 15);
 
   // 返回Canvas数据URL
   return canvas.toDataURL('image/png');

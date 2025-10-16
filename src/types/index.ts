@@ -3,7 +3,7 @@
  * 定义量表、问题、回答、评估结果等核心数据结构
  */
 
-import i18n from "@/locales/i18n";
+import { t } from '@/locales/i18n';
 
 // 基础量表类型
 export interface Scale {
@@ -144,27 +144,27 @@ export const SCALE_IDS = {
 
 // SRI等级定义
 export const SRI_LEVELS = {
-  'very-low': { min: 0, max: 20, label: i18n.t('sriLevels.very_low'), color: 'psychology-success' },
-  'low': { min: 20, max: 40, label: i18n.t('sriLevels.low'), color: 'green-600' },
-  'moderate': { min: 40, max: 60, label: i18n.t('sriLevels.moderate'), color: 'yellow-600' },
-  'high': { min: 60, max: 80, label: i18n.t('sriLevels.high'), color: 'psychology-warning' },
-  'very-high': { min: 80, max: 101, label: i18n.t('sriLevels.very_high'), color: 'psychology-danger' }
+  'very-low': { min: 0, max: 20, label: t('sriLevels.very_low'), color: 'psychology-success' },
+  'low': { min: 20, max: 40, label: t('sriLevels.low'), color: 'green-600' },
+  'moderate': { min: 40, max: 60, label: t('sriLevels.moderate'), color: 'yellow-600' },
+  'high': { min: 60, max: 80, label: t('sriLevels.high'), color: 'psychology-warning' },
+  'very-high': { min: 80, max: 101, label: t('sriLevels.very_high'), color: 'psychology-danger' }
 } as const;
 
 // 李克特量表选项 - 使用国际化键值
 export const LIKERT_OPTIONS = {
-  STRONGLY_DISAGREE: { value: 1, label: i18n.t('options.likert.strongly_disagree') },
-  DISAGREE: { value: 2, label: i18n.t('options.likert.disagree') },
-  NEUTRAL: { value: 3, label: i18n.t('options.likert.neutral') },
-  AGREE: { value: 4, label: i18n.t('options.likert.agree') },
-  STRONGLY_AGREE: { value: 5, label: i18n.t('options.likert.strongly_agree') }
+  STRONGLY_DISAGREE: { value: 1, label: t('options.likert.strongly_disagree') },
+  DISAGREE: { value: 2, label: t('options.likert.disagree') },
+  NEUTRAL: { value: 3, label: t('options.likert.neutral') },
+  AGREE: { value: 4, label: t('options.likert.agree') },
+  STRONGLY_AGREE: { value: 5, label: t('options.likert.strongly_agree') }
 } as const;
 
 // 频率选项 - 使用国际化键值
 export const FREQUENCY_OPTIONS = {
-  NEVER: { value: 1, label: i18n.t('options.frequency.never') },
-  RARELY: { value: 2, label: i18n.t('options.frequency.rarely') },
-  SOMETIMES: { value: 3, label: i18n.t('options.frequency.sometimes') },
-  OFTEN: { value: 4, label: i18n.t('options.frequency.often') },
-  ALWAYS: { value: 5, label: i18n.t('options.frequency.always') }
+  NEVER: { value: 1, label: t('options.frequency.never') },
+  RARELY: { value: 2, label: t('options.frequency.rarely') },
+  SOMETIMES: { value: 3, label: t('options.frequency.sometimes') },
+  OFTEN: { value: 4, label: t('options.frequency.often') },
+  ALWAYS: { value: 5, label: t('options.frequency.always') }
 } as const;

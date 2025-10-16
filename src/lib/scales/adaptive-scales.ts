@@ -4,17 +4,17 @@
  */
 
 import { Demographics, LIKERT_OPTIONS, Scale } from '@/types';
-import i18n from '@/locales/i18n';
+import { t } from '@/locales/i18n';
 
 // 青少年性态度量表（适用于14-17岁）
 export const TEEN_SEXUAL_ATTITUDES: Scale = {
   id: 'teen_sexual_attitudes',
-  name: i18n.t('scales.teen.name'),
-  description: i18n.t('scales.teen.description'),
+  name: t('scales.teen.name'),
+  description: t('scales.teen.description'),
   questions: [
     {
       id: 'tsa_1',
-      text: i18n.t('scales.teen.question.1'),
+      text: t('scales.teen.question.1'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -22,7 +22,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_2',
-      text: i18n.t('scales.teen.question.2'),
+      text: t('scales.teen.question.2'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -30,7 +30,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_3',
-      text: i18n.t('scales.teen.question.3'),
+      text: t('scales.teen.question.3'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -39,7 +39,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_4',
-      text: i18n.t('scales.teen.question.4'),
+      text: t('scales.teen.question.4'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -47,7 +47,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_5',
-      text: i18n.t('scales.teen.question.5'),
+      text: t('scales.teen.question.5'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -55,7 +55,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_6',
-      text: i18n.t('scales.teen.question.6'),
+      text: t('scales.teen.question.6'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -63,7 +63,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_7',
-      text: i18n.t('scales.teen.question.7'),
+      text: t('scales.teen.question.7'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -71,7 +71,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_8',
-      text: i18n.t('scales.teen.question.8'),
+      text: t('scales.teen.question.8'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -79,7 +79,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_9',
-      text: i18n.t('scales.teen.question.9'),
+      text: t('scales.teen.question.9'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -87,7 +87,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_10',
-      text: i18n.t('scales.teen.question.10'),
+      text: t('scales.teen.question.10'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -103,12 +103,12 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
 // 性认知量表（适用于无性经验用户）
 export const SEXUAL_COGNITION: Scale = {
   id: 'sexual_cognition',
-  name: i18n.t('scales.cognition.name'),
-  description: i18n.t('scales.cognition.description'),
+  name: t('scales.cognition.name'),
+  description: t('scales.cognition.description'),
   questions: [
     {
       id: 'sc_1',
-      text: i18n.t('scales.cognition.question.1'),
+      text: t('scales.cognition.question.1'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -116,7 +116,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_2',
-      text: i18n.t('scales.cognition.question.2'),
+      text: t('scales.cognition.question.2'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -125,7 +125,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_3',
-      text: i18n.t('scales.cognition.question.3'),
+      text: t('scales.cognition.question.3'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -133,7 +133,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_4',
-      text: i18n.t('scales.cognition.question.4'),
+      text: t('scales.cognition.question.4'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -141,7 +141,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_5',
-      text: i18n.t('scales.cognition.question.5'),
+      text: t('scales.cognition.question.5'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -149,7 +149,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_6',
-      text: i18n.t('scales.cognition.question.6'),
+      text: t('scales.cognition.question.6'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -157,7 +157,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_7',
-      text: i18n.t('scales.cognition.question.7'),
+      text: t('scales.cognition.question.7'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -165,7 +165,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_8',
-      text: i18n.t('scales.cognition.question.8'),
+      text: t('scales.cognition.question.8'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -173,7 +173,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_9',
-      text: i18n.t('scales.cognition.question.9'),
+      text: t('scales.cognition.question.9'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -182,7 +182,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_10',
-      text: i18n.t('scales.cognition.question.10'),
+      text: t('scales.cognition.question.10'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -198,12 +198,12 @@ export const SEXUAL_COGNITION: Scale = {
 // 修改过的SIS/SES量表（移除具体性行为相关题目）
 export const SIS_SES_ADAPTED: Scale = {
   id: 'sis_ses_adapted',
-  name: i18n.t('scales.adapted.name'),
-  description: i18n.t('scales.adapted.description'),
+  name: t('scales.adapted.name'),
+  description: t('scales.adapted.description'),
   questions: [
     {
       id: 'sisa_1',
-      text: i18n.t('scales.adapted.question.1'),
+      text: t('scales.adapted.question.1'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -211,7 +211,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_2',
-      text: i18n.t('scales.adapted.question.2'),
+      text: t('scales.adapted.question.2'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -219,7 +219,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_3',
-      text: i18n.t('scales.adapted.question.3'),
+      text: t('scales.adapted.question.3'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -227,7 +227,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_4',
-      text: i18n.t('scales.adapted.question.4'),
+      text: t('scales.adapted.question.4'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -235,7 +235,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_5',
-      text: i18n.t('scales.adapted.question.5'),
+      text: t('scales.adapted.question.5'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -243,7 +243,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_6',
-      text: i18n.t('scales.adapted.question.6'),
+      text: t('scales.adapted.question.6'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -251,7 +251,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_7',
-      text: i18n.t('scales.adapted.question.7'),
+      text: t('scales.adapted.question.7'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -259,7 +259,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_8',
-      text: i18n.t('scales.adapted.question.8'),
+      text: t('scales.adapted.question.8'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -388,17 +388,17 @@ export function isInexperienced(demographics: Demographics): boolean {
  */
 export function getUserGroupDescription(demographics: Demographics): string {
   if (isMinor(demographics)) {
-    return i18n.t('scales.group.teen');
+    return t('scales.group.teen');
   }
 
   if (isInexperienced(demographics)) {
-    return i18n.t('scales.group.inexperienced');
+    return t('scales.group.inexperienced');
   }
 
   const sexualActivity = parseInt(demographics.sexualActivity);
   if (sexualActivity === 1) {
-    return i18n.t('scales.group.low');
+    return t('scales.group.low');
   }
 
-  return i18n.t('scales.group.standard');
+  return t('scales.group.standard');
 }

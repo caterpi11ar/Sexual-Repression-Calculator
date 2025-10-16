@@ -960,7 +960,6 @@ export default function Assessment() {
           <div className="container mx-auto">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                <AlertTriangle className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span className="hidden sm:inline">{t('assessmentPage.data.safe')}</span>
                 <span className="sm:hidden">{t('assessmentPage.data.mobile')}</span>
               </div>
