@@ -3,9 +3,6 @@
  * 统一管理所有库文件的导出
  */
 
-// 计算器相关
-export * from './calculator';
-
 // 量表定义
 export * from './scales';
 

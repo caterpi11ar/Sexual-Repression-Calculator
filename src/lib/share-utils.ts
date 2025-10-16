@@ -5,43 +5,7 @@
 
 import { AssessmentSession, SRI_LEVELS, SRIResult } from '@/types';
 import { getAssessmentSession } from '@/lib/storage';
-
-// 国际化函数类型定义
-type TranslationFunction = (key: string, params?: Record<string, any>) => string;
-
-// 默认翻译函数（用于非React环境）
-const defaultT: TranslationFunction = (key: string, params?: Record<string, any>) => {
-  const defaultTranslations: Record<string, string> = {
-    'shareUtils.error.sessionNotFound': '无法获取会话数据',
-    'shareUtils.defaultText': '我刚完成了SRI性压抑指数评估，发现了一些有趣的心理特征！',
-    'shareUtils.templates.veryLow.1': '我的SRI性压抑指数是{score}分，属于{level}！看来我对性的态度比较开放健康呢 😊',
-    'shareUtils.templates.veryLow.2': '刚测完SRI指数：{score}分（{level}）！心理健康状态不错，对自己的性心理有了更好的了解 ✨',
-    'shareUtils.templates.veryLow.3': 'SRI评估结果出炉：{score}分，{level}水平。感觉自己在性心理方面比较自在！',
-    'shareUtils.templates.low.1': '我的SRI性压抑指数：{score}分（{level}），整体还是比较健康的状态！',
-    'shareUtils.templates.low.2': '完成了专业的SRI评估，得分{score}，属于{level}。对自己有了新的认识！',
-    'shareUtils.templates.low.3': 'SRI指数测试结果：{score}分，{level}。性心理健康状况良好 👍',
-    'shareUtils.templates.moderate.1': '我的SRI性压抑指数是{score}分，处于{level}水平。可能需要多关注一下自己的心理健康~',
-    'shareUtils.templates.moderate.2': '刚做了SRI评估：{score}分（{level}）。发现了一些值得思考的心理特征！',
-    'shareUtils.templates.moderate.3': 'SRI测试完成！得分{score}，{level}水平。这个结果让我对自己有了新的理解 🤔',
-    'shareUtils.templates.high.1': '完成了SRI性压抑指数评估，得分{score}（{level}）。看来需要更多关爱自己的心理健康了！',
-    'shareUtils.templates.high.2': '我的SRI指数：{score}分，属于{level}。这个专业测评让我意识到需要更多自我关怀 💝',
-    'shareUtils.templates.high.3': 'SRI评估结果：{score}分（{level}）。准备开始更好地照顾自己的心理健康！',
-    'shareUtils.templates.veryHigh.1': '刚完成SRI性压抑指数测评，得分{score}（{level}）。这个结果提醒我要更关注心理健康 🌱',
-    'shareUtils.templates.veryHigh.2': '我的SRI指数是{score}分，{level}水平。这个科学评估给了我很好的自我认知机会！',
-    'shareUtils.templates.veryHigh.3': 'SRI测试结果：{score}分（{level}）。感谢这个专业工具让我更了解自己 💪',
-    'shareUtils.suffix': '🧠 SRI性压抑指数计算器 - 基于科学心理测量学的专业评估工具\n帮助你更好地了解自己的性心理特征，促进心理健康发展！\n\n#SRI评估 #心理健康 #自我认知'
-  };
-  
-  let text = defaultTranslations[key] || key;
-  
-  if (params) {
-    Object.entries(params).forEach(([paramKey, paramValue]) => {
-      text = text.replace(new RegExp(`{${paramKey}}`, 'g'), String(paramValue));
-    });
-  }
-  
-  return text;
-};
+import i18n from '@/locales/i18n';
 
 /**
  * 生成分享文案
@@ -49,11 +13,9 @@ const defaultT: TranslationFunction = (key: string, params?: Record<string, any>
  * @param t 翻译函数（可选）
  * @returns 分享文案
  */
-export function generateShareText(session: AssessmentSession, t?: TranslationFunction): string {
-  const translationFunction = t || defaultT;
-  
+export function generateShareText(session: AssessmentSession): string {
   if (!session.results) {
-    return translationFunction('shareUtils.defaultText');
+    return i18n.t('shareUtils.defaultText');
   }
 
   const sri = session.results.sri;
@@ -62,36 +24,36 @@ export function generateShareText(session: AssessmentSession, t?: TranslationFun
 
   const templates = {
     'very-low': [
-      translationFunction('shareUtils.templates.veryLow.1', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.veryLow.2', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.veryLow.3', { score, level: levelInfo.label })
+      i18n.t('shareUtils.templates.veryLow.1', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.veryLow.2', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.veryLow.3', { score, level: levelInfo.label })
     ],
     'low': [
-      translationFunction('shareUtils.templates.low.1', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.low.2', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.low.3', { score, level: levelInfo.label })
+      i18n.t('shareUtils.templates.low.1', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.low.2', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.low.3', { score, level: levelInfo.label })
     ],
     'moderate': [
-      translationFunction('shareUtils.templates.moderate.1', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.moderate.2', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.moderate.3', { score, level: levelInfo.label })
+      i18n.t('shareUtils.templates.moderate.1', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.moderate.2', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.moderate.3', { score, level: levelInfo.label })
     ],
     'high': [
-      translationFunction('shareUtils.templates.high.1', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.high.2', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.high.3', { score, level: levelInfo.label })
+      i18n.t('shareUtils.templates.high.1', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.high.2', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.high.3', { score, level: levelInfo.label })
     ],
     'very-high': [
-      translationFunction('shareUtils.templates.veryHigh.1', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.veryHigh.2', { score, level: levelInfo.label }),
-      translationFunction('shareUtils.templates.veryHigh.3', { score, level: levelInfo.label })
+      i18n.t('shareUtils.templates.veryHigh.1', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.veryHigh.2', { score, level: levelInfo.label }),
+      i18n.t('shareUtils.templates.veryHigh.3', { score, level: levelInfo.label })
     ]
   };
 
   const levelTemplates = templates[sri.level];
   const randomTemplate = levelTemplates[Math.floor(Math.random() * levelTemplates.length)];
 
-  return `${randomTemplate}\n\n${translationFunction('shareUtils.suffix')}`;
+  return `${randomTemplate}\n\n${i18n.t('shareUtils.suffix')}`;
 }
 
 /**
@@ -100,13 +62,12 @@ export function generateShareText(session: AssessmentSession, t?: TranslationFun
  * @param t 翻译函数（可选）
  * @returns 分享URL
  */
-export function generateShareUrl(sessionId: string, t?: TranslationFunction): string {
-  const translationFunction = t || defaultT;
-  
+export function generateShareUrl(sessionId: string): string {
+
   // 获取会话数据
   const session = getAssessmentSession(sessionId);
   if (!session || !session.results) {
-    throw new Error(translationFunction('shareUtils.error.sessionNotFound'));
+    throw new Error(i18n.t('shareUtils.error.sessionNotFound'));
   }
 
   // 创建分享数据对象（只包含展示需要的数据）
@@ -135,7 +96,7 @@ export async function copyToClipboard(text: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(text);
       return;
-    } catch (error) {
+    } catch {
       console.warn('Clipboard API failed, falling back to execCommand');
     }
   }
@@ -152,8 +113,8 @@ export async function copyToClipboard(text: string): Promise<void> {
 
   try {
     document.execCommand('copy');
-  } catch (error) {
-    throw new Error(defaultT('calculator.error.copyFailed'));
+  } catch {
+    throw new Error(i18n.t('calculator.error.copyFailed'));
   } finally {
     document.body.removeChild(textArea);
   }
@@ -170,7 +131,7 @@ export async function generateQRCode(text: string): Promise<string> {
   const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}`;
 
   // 简单验证API是否可用
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const img = new Image();
     img.onload = () => {
       // 直接返回API URL，避免Canvas污染问题
@@ -178,7 +139,7 @@ export async function generateQRCode(text: string): Promise<string> {
     };
     img.onerror = () => {
       // 如果API不可用，生成一个简单的文本二维码替代
-      resolve(generateSimpleQRCode(text));
+      resolve(generateSimpleQRCode());
     };
 
     // 设置crossOrigin以避免CORS问题
@@ -189,15 +150,14 @@ export async function generateQRCode(text: string): Promise<string> {
 
 /**
  * 生成简单的二维码替代方案
- * @param text 要编码的文本
  * @returns 简单二维码图片URL
  */
-function generateSimpleQRCode(text: string): string {
+function generateSimpleQRCode(): string {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
 
   if (!ctx) {
-    throw new Error(defaultT('calculator.error.canvasFailed'));
+    throw new Error(i18n.t('calculator.error.canvasFailed'));
   }
 
   // 设置画布尺寸
@@ -252,7 +212,7 @@ function generateSimpleQRCode(text: string): string {
   ctx.fillStyle = '#666666';
   ctx.font = '12px Arial, sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText(defaultT('component.loadingScreen.qrCodeText'), canvas.width / 2, canvas.height - 15);
+  ctx.fillText(i18n.t('component.loadingScreen.qrCodeText'), canvas.width / 2, canvas.height - 15);
 
   // 返回Canvas数据URL
   return canvas.toDataURL('image/png');
