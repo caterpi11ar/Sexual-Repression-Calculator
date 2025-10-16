@@ -3,24 +3,24 @@
  * 支持微博、朋友圈、QQ空间、复制链接等分享方式
  */
 
-import React, {useState} from 'react';
-import {Card, CardContent} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
-import {Alert, AlertDescription} from '@/components/ui/alert';
-import {Separator} from '@/components/ui/separator';
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Separator } from '@/components/ui/separator';
 import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from '@/components/ui/dialog';
-import {Brain, CheckCircle2, Copy, Heart, Link, MessageCircle, QrCode, Share2, Smartphone} from 'lucide-react';
-import {AssessmentSession, SRI_LEVELS} from '@/types';
-import {copyToClipboard, generateQRCode, generateShareText, generateShareUrl, socialShareUrls} from '@/lib/share-utils';
+import { Brain, CheckCircle2, Copy, Heart, Link, MessageCircle, QrCode, Share2, Smartphone } from 'lucide-react';
+import { AssessmentSession, SRI_LEVELS } from '@/types';
+import { copyToClipboard, generateQRCode, generateShareText, generateShareUrl, socialShareUrls } from '@/lib/share-utils';
 
 export interface ShareResultProps {
   session: AssessmentSession;
@@ -83,16 +83,16 @@ export function ShareResult({ session, className }: ShareResultProps) {
     <>
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <Button
+            variant="outline"
+            size="sm"
             className={`flex items-center gap-2 ${className}`}
           >
             <Share2 className="w-4 h-4" />
             <span className="hidden sm:inline">分享结果</span>
           </Button>
         </DialogTrigger>
-        
+
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
@@ -120,25 +120,24 @@ export function ShareResult({ session, className }: ShareResultProps) {
                       </p>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-3">
                     <div className="text-4xl font-bold text-psychology-primary">
                       {Math.round(sri.totalScore)}
                     </div>
-                    <Badge 
-                      className={`text-sm px-4 py-1 ${
-                        sri.level === 'very-low' || sri.level === 'low'
+                    <Badge
+                      className={`text-sm px-4 py-1 ${sri.level === 'very-low' || sri.level === 'low'
                           ? 'text-green-600 bg-green-50 border-green-200'
                           : sri.level === 'moderate'
-                          ? 'text-yellow-600 bg-yellow-50 border-yellow-200'
-                          : 'text-orange-600 bg-orange-50 border-orange-200'
-                      }`}
+                            ? 'text-yellow-600 bg-yellow-50 border-yellow-200'
+                            : 'text-orange-600 bg-orange-50 border-orange-200'
+                        }`}
                       variant="outline"
                     >
                       {levelInfo.label}
                     </Badge>
                   </div>
-                  
+
                   <div className="max-w-xs mx-auto">
                     <Progress value={sri.totalScore} className="h-2" />
                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
@@ -147,7 +146,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                       <span>100</span>
                     </div>
                   </div>
-                  
+
                   <p className="text-sm text-muted-foreground">
                     基于科学心理测量学的专业评估工具
                   </p>
@@ -161,7 +160,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                 <Smartphone className="w-4 h-4" />
                 社交媒体分享
               </h4>
-              
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Button
                   variant="outline"
@@ -213,7 +212,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                 <Link className="w-4 h-4" />
                 直接分享
               </h4>
-              
+
               <div className="space-y-3">
                 <div className="flex gap-2">
                   <div className="flex-1 p-3 bg-muted rounded-lg text-sm font-mono break-all">
@@ -232,7 +231,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                     )}
                   </Button>
                 </div>
-                
+
                 <Button
                   variant="outline"
                   size="sm"
@@ -242,7 +241,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   <QrCode className="w-4 h-4 mr-2" />
                   生成二维码
                 </Button>
-                
+
                 {qrCodeUrl && (
                   <div className="flex justify-center p-4 bg-white rounded-lg border">
                     <img src={qrCodeUrl} alt="分享二维码" className="w-32 h-32" />
@@ -291,7 +290,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
  */
 export function ShareButtonMobile({ session, className }: ShareResultProps) {
   const [copied, setCopied] = useState(false);
-  
+
   if (!session.results) {
     return null;
   }

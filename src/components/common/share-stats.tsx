@@ -3,11 +3,11 @@
  * 提供分享次数、影响力等信息展示
  */
 
-import React, {useEffect, useState} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
-import {Award, Globe, Heart, Share2, Sparkles, Target, TrendingUp, Users} from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Award, Globe, Heart, Share2, Sparkles, Target, TrendingUp, Users } from 'lucide-react';
 
 export interface ShareStatsProps {
   className?: string;
@@ -53,7 +53,7 @@ export function ShareStats({ className }: ShareStatsProps) {
               总分享次数
             </div>
           </div>
-          
+
           <div className="text-center p-4 bg-green-50 rounded-lg">
             <div className="text-2xl font-bold text-green-600">
               {stats.helpedUsers.toLocaleString()}
@@ -64,7 +64,7 @@ export function ShareStats({ className }: ShareStatsProps) {
             </div>
           </div>
         </div>
-        
+
         {/* 今日分享 */}
         <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg">
           <div className="flex items-center gap-2">
@@ -79,7 +79,7 @@ export function ShareStats({ className }: ShareStatsProps) {
             +{stats.todayShares}
           </Badge>
         </div>
-        
+
         {/* 流行度指数 */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
@@ -98,7 +98,7 @@ export function ShareStats({ className }: ShareStatsProps) {
             <span>爆款</span>
           </div>
         </div>
-        
+
         {/* 成就徽章 */}
         <div className="space-y-3">
           <h4 className="text-sm font-medium flex items-center gap-2">
@@ -128,7 +128,7 @@ export function ShareStats({ className }: ShareStatsProps) {
             )}
           </div>
         </div>
-        
+
         {/* 感谢信息 */}
         <div className="bg-psychology-primary/5 rounded-lg p-4 text-center">
           <Heart className="w-6 h-6 text-psychology-primary mx-auto mb-2" />
@@ -139,7 +139,7 @@ export function ShareStats({ className }: ShareStatsProps) {
             您的推荐帮助更多人关注心理健康
           </p>
         </div>
-        
+
         {/* 目标进度 */}
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
@@ -151,9 +151,9 @@ export function ShareStats({ className }: ShareStatsProps) {
               {Math.ceil(stats.totalShares / 100) * 100} 次分享
             </span>
           </div>
-          <Progress 
-            value={(stats.totalShares % 100)} 
-            className="h-1.5" 
+          <Progress
+            value={(stats.totalShares % 100)}
+            className="h-1.5"
           />
           <p className="text-xs text-muted-foreground text-center">
             还需 {Math.ceil(stats.totalShares / 100) * 100 - stats.totalShares} 次分享解锁新成就

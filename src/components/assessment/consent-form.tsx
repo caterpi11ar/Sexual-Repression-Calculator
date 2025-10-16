@@ -3,12 +3,12 @@
  * 提供专业的伦理保护和透明的信息披露
  */
 
-import React, {useState} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Checkbox} from '@/components/ui/checkbox';
-import {AlertTriangle, Eye, FileText, Shield, Users} from 'lucide-react';
-import {Alert, AlertDescription} from '@/components/ui/alert';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { AlertTriangle, Eye, FileText, Shield, Users } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 interface ConsentFormProps {
   onConsent: (consented: boolean) => void;
@@ -67,7 +67,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
             </div>
             <div className="ml-8">
               <label className="flex items-start gap-2 text-sm cursor-pointer">
-                <Checkbox 
+                <Checkbox
                   checked={agreements.purpose}
                   onCheckedChange={(checked) => handleAgreementChange('purpose', !!checked)}
                   className="mt-1"
@@ -92,7 +92,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
             </div>
             <div className="ml-8">
               <label className="flex items-start gap-2 text-sm cursor-pointer">
-                <Checkbox 
+                <Checkbox
                   checked={agreements.privacy}
                   onCheckedChange={(checked) => handleAgreementChange('privacy', !!checked)}
                   className="mt-1"
@@ -117,7 +117,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
             </div>
             <div className="ml-8">
               <label className="flex items-start gap-2 text-sm cursor-pointer">
-                <Checkbox 
+                <Checkbox
                   checked={agreements.voluntary}
                   onCheckedChange={(checked) => handleAgreementChange('voluntary', !!checked)}
                   className="mt-1"
@@ -142,7 +142,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
             </div>
             <div className="ml-8">
               <label className="flex items-start gap-2 text-sm cursor-pointer">
-                <Checkbox 
+                <Checkbox
                   checked={agreements.nonDiagnostic}
                   onCheckedChange={(checked) => handleAgreementChange('nonDiagnostic', !!checked)}
                   className="mt-1"
@@ -169,7 +169,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
                 </div>
                 <div className="ml-8 space-y-2">
                   <label className="flex items-start gap-2 text-sm cursor-pointer">
-                    <Checkbox 
+                    <Checkbox
                       checked={agreements.ageConfirmation}
                       onCheckedChange={(checked) => handleAgreementChange('ageConfirmation', !!checked)}
                       className="mt-1"
@@ -177,7 +177,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
                     <span>我确认我的年龄在14-17岁之间，理解这是一个教育性的自我认知工具</span>
                   </label>
                   <label className="flex items-start gap-2 text-sm cursor-pointer">
-                    <Checkbox 
+                    <Checkbox
                       checked={agreements.parentalConsent}
                       onCheckedChange={(checked) => handleAgreementChange('parentalConsent', !!checked)}
                       className="mt-1"
@@ -186,7 +186,7 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
                   </label>
                 </div>
               </div>
-              
+
               <Alert className="border-psychology-warning">
                 <AlertTriangle className="h-4 w-4 text-psychology-warning" />
                 <AlertDescription className="text-sm">
@@ -215,13 +215,13 @@ export function ConsentForm({ onConsent, onBack, isMinor = false }: ConsentFormP
               </Button>
             )}
             <div className="flex gap-3 ml-auto">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 onClick={() => onConsent(false)}
               >
                 我不同意
               </Button>
-              <Button 
+              <Button
                 onClick={() => onConsent(true)}
                 disabled={!allAgreed}
                 className="bg-psychology-primary hover:bg-psychology-primary/90"

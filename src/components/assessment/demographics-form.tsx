@@ -3,14 +3,14 @@
  * 遵循最小化数据收集原则，保护用户隐私
  */
 
-import React, {useState} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
-import {Label} from '@/components/ui/label';
-import {ArrowLeft, ArrowRight, Users} from 'lucide-react';
-import {Demographics} from '@/types';
-import {DEMOGRAPHICS_QUESTIONS} from '@/lib/scales';
+import React, { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { ArrowLeft, ArrowRight, Users } from 'lucide-react';
+import { Demographics } from '@/types';
+import { DEMOGRAPHICS_QUESTIONS } from '@/lib/scales';
 
 interface DemographicsFormProps {
   onSubmit: (demographics: Demographics) => void;
@@ -19,7 +19,7 @@ interface DemographicsFormProps {
 }
 
 export function DemographicsForm({ onSubmit, onBack, initialData }: DemographicsFormProps) {
-  const [formData, setFormData] = useState<Partial<Demographics & Record<string, any>>>({
+  const [formData, setFormData] = useState<Partial<Demographics & Record<string, unknown>>>({
     consentToParticipate: true,
     ...initialData
   });
@@ -35,16 +35,16 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
 
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
-    
+
     // 检查必填字段
     const requiredQuestions = DEMOGRAPHICS_QUESTIONS.filter(q => q.required);
-    
+
     for (const question of requiredQuestions) {
       if (!formData[question.id as keyof Demographics]) {
         newErrors[question.id] = '请选择一个选项';
       }
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -97,7 +97,7 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
           {DEMOGRAPHICS_QUESTIONS.map((question) => {
             const currentValue = formData[question.id as keyof Demographics]?.toString() || '';
             const hasError = !!errors[question.id];
-            
+
             return (
               <div key={question.id} className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -111,7 +111,7 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
                     </span>
                   )}
                 </div>
-                
+
                 <RadioGroup
                   value={currentValue}
                   onValueChange={(value) => handleChange(question.id, value)}
@@ -119,12 +119,12 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
                 >
                   {question.options.map((option) => (
                     <div key={option.value} className="flex items-center space-x-3">
-                      <RadioGroupItem 
-                        value={option.value.toString()} 
+                      <RadioGroupItem
+                        value={option.value.toString()}
                         id={`${question.id}-${option.value}`}
                         className="text-psychology-primary"
                       />
-                      <Label 
+                      <Label
                         htmlFor={`${question.id}-${option.value}`}
                         className="text-sm font-normal cursor-pointer flex-1 p-2 rounded hover:bg-muted/50 transition-colors"
                       >
@@ -133,7 +133,7 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
                     </div>
                   ))}
                 </RadioGroup>
-                
+
                 {hasError && (
                   <p className="text-sm text-red-500">{errors[question.id]}</p>
                 )}
@@ -158,7 +158,7 @@ export function DemographicsForm({ onSubmit, onBack, initialData }: Demographics
                 返回
               </Button>
             )}
-            <Button 
+            <Button
               onClick={handleSubmit}
               className="bg-psychology-primary hover:bg-psychology-primary/90 ml-auto"
             >

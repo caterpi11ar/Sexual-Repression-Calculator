@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import {Demographics, Response} from '@/types';
-import {QuestionnaireList} from './questionnaire-list';
+import { Demographics, Response } from '@/types';
+import { QuestionnaireList } from './questionnaire-list';
 
 interface QuestionnaireSectionProps {
   type: 'quick' | 'full';

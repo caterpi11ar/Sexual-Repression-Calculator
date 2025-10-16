@@ -3,17 +3,17 @@
  * 提供完整的题目概览和横向选项布局
  */
 
-import React, {useEffect, useRef, useState} from 'react';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
-import {Label} from '@/components/ui/label';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader,} from '@/components/ui/dialog';
-import {AlertCircle, ArrowLeft, ArrowUp, BarChart3, CheckCircle, ChevronLeft, ChevronRight} from 'lucide-react';
-import {Demographics, Question, Response} from '@/types';
-import {ALL_SCALES, getAdaptiveFullScales, getAdaptiveScales, getUserGroupDescription} from '@/lib/scales';
+import React, { useEffect, useRef, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, } from '@/components/ui/dialog';
+import { AlertCircle, ArrowLeft, ArrowUp, BarChart3, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Demographics, Question, Response } from '@/types';
+import { ALL_SCALES, getAdaptiveFullScales, getAdaptiveScales, getUserGroupDescription } from '@/lib/scales';
 
 interface QuestionnaireListProps {
   type: 'quick' | 'full';
@@ -23,107 +23,6 @@ interface QuestionnaireListProps {
   onComplete: () => void;
   onBack?: () => void;
   resumeToken?: number | null;
-}
-
-// 分页导航组件 - 统一的翻页组件，支持快捷翻页
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
-}
-
-function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationProps) {
-  const canGoPrev = currentPage > 0;
-  const canGoNext = currentPage < totalPages - 1;
-  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
-
-  const goToPrev = () => {
-    if (canGoPrev) {
-      onPageChange(currentPage - 1);
-    }
-  };
-
-  const goToNext = () => {
-    if (canGoNext) {
-      onPageChange(currentPage + 1);
-    }
-  };
-
-  // 当前页变化时，自动滚动到可视区域
-  React.useEffect(() => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const activeButton = container.querySelector(`[data-page="${currentPage}"]`) as HTMLElement;
-
-      if (activeButton) {
-        // 计算按钮相对于容器的位置
-        const containerWidth = container.clientWidth;
-        const buttonLeft = activeButton.offsetLeft;
-        const buttonWidth = activeButton.offsetWidth;
-
-        // 滚动到按钮居中位置
-        container.scrollTo({
-          left: buttonLeft - containerWidth / 2 + buttonWidth / 2,
-          behavior: 'smooth'
-        });
-      }
-    }
-  }, [currentPage]);
-
-  return (
-    <div className="flex items-center justify-between gap-2 sm:gap-4">
-      <Button
-        variant="outline"
-        onClick={goToPrev}
-        disabled={!canGoPrev}
-        className="flex items-center gap-1 sm:gap-2 transition-all hover:scale-105 disabled:hover:scale-100 shrink-0 h-9 px-2 sm:px-4"
-      >
-        <ChevronLeft className="w-4 h-4" />
-        <span className="hidden sm:inline text-sm">上一页</span>
-      </Button>
-
-      <div className="flex items-center gap-2 flex-1 min-w-0">
-        <span className="text-xs sm:text-sm text-muted-foreground shrink-0 hidden md:inline">
-          {currentPage + 1} / {totalPages}
-        </span>
-        {/* 快捷翻页按钮 - 横向滚动容器 */}
-        <div
-          ref={scrollContainerRef}
-          className="flex gap-1 overflow-x-auto overflow-y-hidden flex-1 py-1"
-          style={{ scrollbarWidth: 'thin' }}
-        >
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              data-page={i}
-              onClick={() => onPageChange(i)}
-              className={`
-                w-8 h-8 rounded text-xs font-medium transition-all duration-200 shrink-0
-                ${i === currentPage
-                  ? 'bg-psychology-primary text-white scale-110 shadow-md'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
-                }
-              `}
-              aria-label={`第 ${i + 1} 页`}
-              aria-current={i === currentPage ? 'page' : undefined}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <Button
-        variant="outline"
-        onClick={goToNext}
-        disabled={!canGoNext}
-        className="flex items-center gap-1 sm:gap-2 transition-all hover:scale-105 disabled:hover:scale-100 shrink-0 h-9 px-2 sm:px-4"
-      >
-        <span className="hidden sm:inline text-sm">下一页</span>
-        <ChevronRight className="w-4 h-4" />
-      </Button>
-    </div>
-  );
 }
 
 // 分页导航组件 - 统一的翻页组件，支持快捷翻页
@@ -247,7 +146,7 @@ export function QuestionnaireList({
 
   const scaleIds = getScalesForUser();
   const userGroup = getUserGroupDescription(demographics);
-  
+
   // 显示选中的量表信息
   console.log(`用户群体: ${userGroup}, 选中量表:`, scaleIds);
   const allQuestions = scaleIds.flatMap(scaleId => {
@@ -309,19 +208,19 @@ export function QuestionnaireList({
       }
     }
   }, [type]);
-  
+
   // 分页设置 - 完整版采用分页模式
   const usesPagination = type === 'full';
   const questionsPerPage = usesPagination ? 15 : allQuestions.length;
   const totalPages = usesPagination ? Math.ceil(allQuestions.length / questionsPerPage) : 1;
-  
+
   // 获取当前页的题目
   const getCurrentPageQuestions = () => {
     if (!usesPagination) return allQuestions;
     const startIndex = currentPage * questionsPerPage;
     return allQuestions.slice(startIndex, startIndex + questionsPerPage);
   };
-  
+
   const currentPageQuestions = getCurrentPageQuestions();
   useEffect(() => {
     if (!scrollToQuestionId) {
@@ -399,7 +298,7 @@ export function QuestionnaireList({
       .filter(q => q.required)
       .filter(q => !responses.some(r => r.questionId === q.id))
       .length;
-    
+
     return { answered, unanswered, requiredUnanswered };
   };
 
@@ -408,7 +307,7 @@ export function QuestionnaireList({
     const stats = getAnswerStats();
     if (stats.requiredUnanswered > 0) {
       // 滚动到第一个未回答的必答题
-      const firstUnanswered = allQuestions.find(q => 
+      const firstUnanswered = allQuestions.find(q =>
         q.required && !responses.some(r => r.questionId === q.id)
       );
       if (firstUnanswered) {
@@ -427,17 +326,17 @@ export function QuestionnaireList({
             return;
           }
         }
-        
+
         document.getElementById(`question-${firstUnanswered.id}`)?.scrollIntoView({
           behavior: 'smooth',
           block: 'center'
         });
       }
-      
+
       alert(`还有 ${stats.requiredUnanswered} 道必答题未完成，请继续填写。`);
       return;
     }
-    
+
     // 清除保存的进度
     localStorage.removeItem('sri_assessment_progress');
     onComplete();
@@ -449,7 +348,7 @@ export function QuestionnaireList({
     if (scale) {
       if (usesPagination) {
         // 分页模式：只显示当前页的题目
-        const scaleQuestionsOnPage = scale.questions.filter(q => 
+        const scaleQuestionsOnPage = scale.questions.filter(q =>
           currentPageQuestions.some(pq => pq.id === q.id)
         );
         if (scaleQuestionsOnPage.length > 0) {
@@ -528,7 +427,7 @@ export function QuestionnaireList({
         </CardHeader>
         <CardContent className="space-y-4">
           <Progress value={progress} className="h-2" />
-          
+
           <div className="grid grid-cols-3 gap-2 sm:gap-4">
             <div className="text-center p-3 bg-green-50 rounded-lg">
               <div className="text-2xl font-bold text-green-600">{stats.answered}</div>
@@ -566,7 +465,7 @@ export function QuestionnaireList({
       {/* 按量表分组显示题目 */}
       {Object.entries(questionsByScale).map(([scaleId, questions]) => {
         const scale = ALL_SCALES[scaleId];
-        const scaleResponses = responses.filter(r => 
+        const scaleResponses = responses.filter(r =>
           questions.some(q => q.id === r.questionId)
         );
         const scaleProgress = (scaleResponses.length / questions.length) * 100;
@@ -593,16 +492,16 @@ export function QuestionnaireList({
               {questions.map((question, index) => {
                 const currentResponse = getResponseForQuestion(question.id);
                 const isAnswered = !!currentResponse;
-                
+
                 return (
-                  <div 
+                  <div
                     key={question.id}
                     id={`question-${question.id}`}
                     className={`
                       p-6 rounded-lg border-2 transition-all duration-200
-                      ${isAnswered 
-                        ? 'bg-green-50 border-green-200' 
-                        : question.required 
+                      ${isAnswered
+                        ? 'bg-green-50 border-green-200'
+                        : question.required
                           ? 'bg-red-50 border-red-200'
                           : 'bg-gray-50 border-gray-200'
                       }
@@ -644,9 +543,9 @@ export function QuestionnaireList({
                       <div className="grid grid-cols-1 gap-3 sm:gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5">
                         {question.options.map((option) => {
                           const isSelected = currentResponse?.value === option.value;
-                          
+
                           return (
-                            <div 
+                            <div
                               key={option.value}
                               onClick={() => handleAnswer(question.id, option.value)}
                               onKeyDown={(e) => {
@@ -660,18 +559,18 @@ export function QuestionnaireList({
                               tabIndex={0}
                               className={`
                                 flex items-center p-2 sm:p-3 rounded-lg border-2 transition-all duration-200 cursor-pointer hover:bg-white/50 select-none active:scale-[0.98]
-                                ${isSelected 
-                                  ? 'bg-white border-psychology-primary shadow-sm' 
+                                ${isSelected
+                                  ? 'bg-white border-psychology-primary shadow-sm'
                                   : 'bg-white/30 border-gray-300 hover:border-gray-400'
                                 }
                               `}
                             >
-                              <RadioGroupItem 
-                                value={option.value.toString()} 
+                              <RadioGroupItem
+                                value={option.value.toString()}
                                 id={`${question.id}-option-${option.value}`}
                                 className="shrink-0"
                               />
-                              <Label 
+                              <Label
                                 htmlFor={`${question.id}-option-${option.value}`}
                                 className="ml-2 sm:ml-3 cursor-pointer text-xs sm:text-sm font-medium flex-1 leading-tight"
                               >

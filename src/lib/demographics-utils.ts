@@ -3,7 +3,7 @@
  * 用于在历史记录等页面中显示更直观的用户信息
  */
 
-import {DEMOGRAPHICS_QUESTIONS} from '@/lib/scales';
+import { DEMOGRAPHICS_QUESTIONS } from '@/lib/scales';
 
 /**
  * 根据问题ID和值获取对应的文字标签
@@ -19,7 +19,7 @@ export function getDemographicsLabel(questionId: string, value: string | number)
 
   const numericValue = typeof value === 'string' ? parseInt(value) : value;
   const option = question.options.find(opt => opt.value === numericValue);
-  
+
   return option?.label || value.toString();
 }
 
@@ -85,7 +85,7 @@ export function formatDemographicsForDisplay(demographics: {
     gender: getGenderLabel(demographics.gender),
     relationshipStatus: getRelationshipStatusLabel(demographics.relationshipStatus),
     sexualActivity: getSexualActivityLabel(demographics.sexualActivity),
-    religiousCultural: demographics.religiousCultural 
+    religiousCultural: demographics.religiousCultural
       ? getReligiousCulturalLabel(demographics.religiousCultural)
       : undefined
   };

@@ -20,9 +20,8 @@ export default function BackToTopButton() {
   return (
     <div
       // 固定右下角，层级极高，保证覆盖掉评测页面内旧按钮
-      className={`fixed bottom-6 right-6 z-[9999] transition-opacity duration-300 ${
-        visible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
+      className={`fixed bottom-6 right-6 z-[9999] transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
     >
       <button
         onClick={scrollToTop}

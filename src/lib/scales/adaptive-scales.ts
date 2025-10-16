@@ -3,7 +3,7 @@
  * 为未成年人和无性经验用户提供适合的评估内容
  */
 
-import {Demographics, LIKERT_OPTIONS, Scale} from '@/types';
+import { Demographics, LIKERT_OPTIONS, Scale } from '@/types';
 
 // 青少年性态度量表（适用于14-17岁）
 export const TEEN_SEXUAL_ATTITUDES: Scale = {
@@ -279,7 +279,7 @@ export const SIS_SES_ADAPTED: Scale = {
 export function getAdaptiveScales(demographics: Demographics): string[] {
   const ageValue = parseInt(demographics.age);
   const sexualActivity = parseInt(demographics.sexualActivity);
-  
+
   // 14-17岁未成年人
   if (ageValue === 0) {
     return [
@@ -289,7 +289,7 @@ export function getAdaptiveScales(demographics: Demographics): string[] {
       'sos_screening'           // 5题 (保持原有)
     ]; // 总计 33题
   }
-  
+
   // 无性经验的成年人
   if (sexualActivity === 0) {
     return [
@@ -300,7 +300,7 @@ export function getAdaptiveScales(demographics: Demographics): string[] {
       'sos_screening'           // 5题
     ]; // 总计 42题
   }
-  
+
   // 有性经验但活跃度低的用户
   if (sexualActivity === 1) {
     return [
@@ -310,7 +310,7 @@ export function getAdaptiveScales(demographics: Demographics): string[] {
       'sos_screening'           // 5题
     ]; // 总计 38题
   }
-  
+
   // 默认标准量表（有一定性经验的用户）
   return [
     'sis_ses_sf',               // 14题
@@ -328,7 +328,7 @@ export function getAdaptiveScales(demographics: Demographics): string[] {
 export function getAdaptiveFullScales(demographics: Demographics): string[] {
   const ageValue = parseInt(demographics.age);
   const sexualActivity = parseInt(demographics.sexualActivity);
-  
+
   // 14-17岁未成年人 - 扩展版但仍适合年龄
   if (ageValue === 0) {
     return [
@@ -339,7 +339,7 @@ export function getAdaptiveFullScales(demographics: Demographics): string[] {
       'kiss9_shame'             // 9题
     ]; // 总计 58题
   }
-  
+
   // 无性经验的成年人 - 适应版完整套装
   if (sexualActivity === 0) {
     return [
@@ -351,7 +351,7 @@ export function getAdaptiveFullScales(demographics: Demographics): string[] {
       'bsas_brief'              // 23题
     ]; // 总计 99题
   }
-  
+
   // 默认完整版量表
   return [
     'sis_ses_full',             // 45题
@@ -389,15 +389,15 @@ export function getUserGroupDescription(demographics: Demographics): string {
   if (isMinor(demographics)) {
     return '青少年适应版';
   }
-  
+
   if (isInexperienced(demographics)) {
     return '无性经验适应版';
   }
-  
+
   const sexualActivity = parseInt(demographics.sexualActivity);
   if (sexualActivity === 1) {
     return '低活跃度适应版';
   }
-  
+
   return '标准版';
 }

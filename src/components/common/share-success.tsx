@@ -3,11 +3,11 @@
  * 提供友好的成功反馈和后续操作建议
  */
 
-import React, {useEffect, useState} from 'react';
-import {Card, CardContent} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {ArrowRight, CheckCircle, Heart, Share2, Sparkles, Users} from 'lucide-react';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, CheckCircle, Heart, Share2, Sparkles, Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface ShareSuccessProps {
   show: boolean;
@@ -61,20 +61,20 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
             </div>
             <div className="absolute -top-1 -right-1">
               <div className={`w-8 h-8 ${platformInfo.color} rounded-full flex items-center justify-center text-white text-xs font-bold`}>
-                {typeof platformInfo.icon === 'string' && platformInfo.icon.length === 1 
-                  ? platformInfo.icon 
+                {typeof platformInfo.icon === 'string' && platformInfo.icon.length === 1
+                  ? platformInfo.icon
                   : <Share2 className="w-4 h-4" />
                 }
               </div>
             </div>
             {/* 装饰性光效 */}
             <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" style={{ 
+              <Sparkles className="w-6 h-6 text-yellow-400 animate-pulse" style={{
                 transform: 'translate(24px, -24px)'
               }} />
             </div>
           </div>
-          
+
           {/* 成功消息 */}
           <div>
             <h3 className="text-xl font-bold text-green-600 mb-2">
@@ -84,7 +84,7 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
               已成功分享到{platformInfo.name}，感谢您推荐SRI评估工具！
             </p>
           </div>
-          
+
           {/* 统计信息 */}
           <div className="bg-green-50 rounded-lg p-4">
             <div className="flex items-center justify-center gap-2 text-green-700">
@@ -95,10 +95,10 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
               您的分享可能会帮助朋友更好地认识自己
             </p>
           </div>
-          
+
           {/* 操作按钮 */}
           <div className="space-y-3">
-            <Button 
+            <Button
               onClick={() => navigate('/assessment')}
               className="w-full bg-psychology-primary hover:bg-psychology-primary/90"
             >
@@ -106,9 +106,9 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
               邀请朋友来测评
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            
-            <Button 
-              variant="outline" 
+
+            <Button
+              variant="outline"
               onClick={() => {
                 setVisible(false);
                 setTimeout(onClose, 300);

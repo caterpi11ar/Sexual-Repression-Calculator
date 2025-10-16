@@ -4,26 +4,26 @@
  */
 
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Separator} from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
 import {
-    AlertTriangle,
-    ArrowRight,
-    BookOpen,
-    Brain,
-    CheckCircle,
-    Clock,
-    FileText,
-    Heart,
-    Home,
-    Info,
-    Lightbulb,
-    Shield,
-    Target,
-    Users
+  AlertTriangle,
+  ArrowRight,
+  BookOpen,
+  Brain,
+  CheckCircle,
+  Clock,
+  FileText,
+  Heart,
+  Home,
+  Info,
+  Lightbulb,
+  Shield,
+  Target,
+  Users
 } from 'lucide-react';
 
 export default function Guide() {

@@ -3,38 +3,38 @@
  * 负责管理整个评估流程，包括知情同意、人口学信息、量表问卷等
  */
 
-import React, {useEffect, useRef, useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
-import {Card} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Progress} from '@/components/ui/progress';
+import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import {AlertTriangle, ArrowLeft, Brain, CheckCircle, Home} from 'lucide-react';
-import {AssessmentSession, Demographics, Response} from '@/types';
-import {calculateAssessmentResults} from '@/lib/calculator';
-import {saveAssessmentSession} from '@/lib/storage';
-import {ConsentForm} from '@/components/assessment/consent-form';
-import {DemographicsForm} from '@/components/assessment/demographics-form';
-import {QuestionnaireSection} from '@/components/assessment/questionnaire-section';
+import { AlertTriangle, ArrowLeft, Brain, CheckCircle, Home } from 'lucide-react';
+import { AssessmentSession, Demographics, Response } from '@/types';
+import { calculateAssessmentResults } from '@/lib/calculator';
+import { saveAssessmentSession } from '@/lib/storage';
+import { ConsentForm } from '@/components/assessment/consent-form';
+import { DemographicsForm } from '@/components/assessment/demographics-form';
+import { QuestionnaireSection } from '@/components/assessment/questionnaire-section';
 
 type AssessmentStep = 'consent' | 'demographics' | 'questionnaire' | 'processing' | 'completed';
 
 export default function Assessment() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  
+
   // 获取评估类型
   const assessmentType = (searchParams.get('type') as 'quick' | 'full') || 'quick';
-  
+
   // 状态管理
   const [currentStep, setCurrentStep] = useState<AssessmentStep>('consent');
   const [sessionId] = useState(() => `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
@@ -95,7 +95,7 @@ export default function Assessment() {
     }
   }, [assessmentType, hasCheckedProgress]);
 
-const handleContinueProgress = () => {
+  const handleContinueProgress = () => {
     if (!pendingProgress) {
       closingProgressDialogRef.current = false;
       setShowProgressDialog(false);
@@ -189,7 +189,7 @@ const handleContinueProgress = () => {
   }, [assessmentType, hasCheckedProgress]);
 
 
-const handleDiscardProgress = () => {
+  const handleDiscardProgress = () => {
     closingProgressDialogRef.current = true;
     localStorage.removeItem('sri_assessment_progress');
     setPendingProgress(null);
@@ -213,7 +213,7 @@ const handleDiscardProgress = () => {
     }
   };
 
-const handleProgressDialogOpenChange = (open: boolean) => {
+  const handleProgressDialogOpenChange = (open: boolean) => {
     if (!open) {
       if (closingProgressDialogRef.current) {
         closingProgressDialogRef.current = false;
@@ -295,7 +295,7 @@ const handleProgressDialogOpenChange = (open: boolean) => {
     try {
       // 计算结果
       const results = calculateAssessmentResults(responses, sessionId);
-      
+
       // 更新会话
       const completedSession: AssessmentSession = {
         ...session,
@@ -434,7 +434,7 @@ const handleProgressDialogOpenChange = (open: boolean) => {
       <main className="container mx-auto px-4 py-8">
         {/* 知情同意书 */}
         {currentStep === 'consent' && (
-          <ConsentForm 
+          <ConsentForm
             onConsent={handleConsent}
             isMinor={isMinorUser}
           />
@@ -470,7 +470,7 @@ const handleProgressDialogOpenChange = (open: boolean) => {
                 <div className="w-16 h-16 bg-psychology-primary/10 rounded-full flex items-center justify-center mx-auto">
                   <Brain className="w-8 h-8 text-psychology-primary animate-pulse" />
                 </div>
-                
+
                 <div>
                   <h2 className="text-2xl font-bold text-psychology-primary mb-2">
                     正在分析您的回答

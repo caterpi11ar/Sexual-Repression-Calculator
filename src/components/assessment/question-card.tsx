@@ -3,15 +3,15 @@
  * 提供清晰的交互界面和视觉反馈
  */
 
-import React, {useState} from 'react';
-import {Card, CardContent} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
-import {Label} from '@/components/ui/label';
-import {Badge} from '@/components/ui/badge';
-import {AlertCircle, SkipForward} from 'lucide-react';
-import {Question, QuestionOption, Response} from '@/types';
-import {ALL_SCALES} from '@/lib/scales';
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { AlertCircle, SkipForward } from 'lucide-react';
+import { Question, QuestionOption, Response } from '@/types';
+import { ALL_SCALES } from '@/lib/scales';
 
 interface QuestionCardProps {
   question: Question;
@@ -44,7 +44,7 @@ export function QuestionCard({
   const handleValueChange = (value: string) => {
     setSelectedValue(value);
     setShowValidation(false);
-    
+
     // 立即提交回答，但不自动跳转
     const response: Response = {
       questionId: question.id,
@@ -64,7 +64,7 @@ export function QuestionCard({
 
   const getOptionColorClass = (option: QuestionOption, isSelected: boolean) => {
     if (!isSelected) return 'hover:bg-muted/50';
-    
+
     // 根据选项值设置不同颜色
     const value = option.value;
     if (value <= 2) return 'bg-green-100 border-green-300 text-green-800';
@@ -115,22 +115,22 @@ export function QuestionCard({
               {question.options.map((option) => {
                 const isSelected = selectedValue === option.value.toString();
                 const colorClass = getOptionColorClass(option, isSelected);
-                
+
                 return (
-                  <div 
-                    key={option.value} 
+                  <div
+                    key={option.value}
                     className={`
                       flex items-center p-4 rounded-lg border-2 transition-all duration-200 cursor-pointer
                       ${colorClass}
                       ${isSelected ? 'border-current' : 'border-muted'}
                     `}
                   >
-                    <RadioGroupItem 
-                      value={option.value.toString()} 
+                    <RadioGroupItem
+                      value={option.value.toString()}
                       id={`option-${option.value}`}
                       className="text-current"
                     />
-                    <Label 
+                    <Label
                       htmlFor={`option-${option.value}`}
                       className="ml-4 cursor-pointer flex-1 font-medium"
                     >
@@ -158,8 +158,8 @@ export function QuestionCard({
           {/* 跳过按钮 */}
           {allowSkip && (
             <div className="flex justify-center mt-6">
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={handleSkip}
                 className="text-muted-foreground hover:text-foreground"

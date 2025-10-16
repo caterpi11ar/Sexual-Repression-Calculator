@@ -3,32 +3,32 @@
  * 提供专业的心理测评结果展示和个性化建议
  */
 
-import React, {useEffect, useState} from 'react';
-import {useNavigate, useSearchParams} from 'react-router-dom';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
-import {Separator} from '@/components/ui/separator';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
 import {
-    AlertCircle,
-    BarChart3,
-    Brain,
-    CheckCircle,
-    Clock,
-    Download,
-    Home,
-    Info,
-    RefreshCw,
-    Shield,
-    TrendingUp
+  AlertCircle,
+  BarChart3,
+  Brain,
+  CheckCircle,
+  Clock,
+  Download,
+  Home,
+  Info,
+  RefreshCw,
+  Shield,
+  TrendingUp
 } from 'lucide-react';
-import {AssessmentSession, SRI_LEVELS} from '@/types';
-import {diagnoseStorage, downloadAsJSON, getAssessmentSession} from '@/lib/storage';
-import {ALL_SCALES} from '@/lib/scales';
-import {ShareButtonMobile, ShareResult, SocialShareFloating} from '@/components/common';
-import {useIsMobile} from '@/hooks/use-mobile';
-import {decodeShareData} from '@/lib/share-utils';
+import { AssessmentSession, SRI_LEVELS } from '@/types';
+import { diagnoseStorage, downloadAsJSON, getAssessmentSession } from '@/lib/storage';
+import { ALL_SCALES } from '@/lib/scales';
+import { ShareButtonMobile, ShareResult, SocialShareFloating } from '@/components/common';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { decodeShareData } from '@/lib/share-utils';
 
 export default function Results() {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export default function Results() {
   const isShared = searchParams.get('shared') === 'true'; // 检测是否为分享链接
   const shareData = searchParams.get('data'); // 分享数据
   const isMobile = useIsMobile();
-  
+
   const [session, setSession] = useState<AssessmentSession | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -85,7 +85,7 @@ export default function Results() {
             endTime: new Date(decoded.completedAt),
             completed: true
           };
-          
+
           setSession(virtualSession);
           setLoading(false);
           return;
@@ -121,7 +121,7 @@ export default function Results() {
     try {
       const assessmentSession = getAssessmentSession(sessionId);
       console.log('Found session:', assessmentSession ? 'Yes' : 'No');
-      
+
       if (!assessmentSession) {
         setError(`未找到会话ID为 "${sessionId}" 的评估记录。可能已被删除或损坏。`);
         setLoading(false);
@@ -148,7 +148,7 @@ export default function Results() {
   // 下载结果
   const handleDownload = () => {
     if (!session || !sessionId) return;
-    
+
     const exportData = {
       sessionId: session.id,
       timestamp: new Date().toISOString(),
@@ -160,7 +160,7 @@ export default function Results() {
         return acc;
       }, {} as Record<string, number>)
     };
-    
+
     downloadAsJSON(exportData, `SRI评估结果_${new Date().toISOString().split('T')[0]}.json`);
   };
 
@@ -224,7 +224,7 @@ export default function Results() {
               <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
                 {error || '未找到评估结果'}
               </p>
-              
+
               {/* 调试信息（开发环境） */}
               {process.env.NODE_ENV === 'development' && (
                 <div className="bg-gray-50 p-3 rounded-lg text-left text-xs text-gray-600 mb-4">
@@ -235,7 +235,7 @@ export default function Results() {
                   <div>有结果: {session?.results ? '是' : '否'}</div>
                 </div>
               )}
-              
+
               {/* 解决建议 */}
               <div className="bg-blue-50 p-4 rounded-lg mb-4 text-left">
                 <h3 className="font-semibold text-blue-800 mb-2">可能的解决方法:</h3>
@@ -246,7 +246,7 @@ export default function Results() {
                   <li>• 如果问题持续，请重新进行评估</li>
                 </ul>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button variant="outline" onClick={() => navigate('/history')}>
                   <Clock className="w-4 h-4 mr-2" />
@@ -302,7 +302,7 @@ export default function Results() {
               ) : (
                 <ShareResult session={session} />
               )}
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -356,7 +356,7 @@ export default function Results() {
             <div className="text-4xl sm:text-6xl font-bold text-psychology-primary mb-4">
               {Math.round(sri.totalScore)}
             </div>
-            <Badge 
+            <Badge
               className={`text-lg flex justify-center px-6 py-2 ${getLevelColorClass(sri.level)}`}
               variant="outline"
             >
@@ -439,7 +439,7 @@ export default function Results() {
                   </div>
                   <Progress value={Math.abs(sri.dimensionScores.sosReversed) * 20} className="h-2" />
                 </div>
-                
+
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-medium">性内疚 (Guilt)</span>
@@ -450,7 +450,7 @@ export default function Results() {
                   <Progress value={Math.abs(sri.dimensionScores.sexGuilt) * 20} className="h-2" />
                 </div>
               </div>
-              
+
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
@@ -461,7 +461,7 @@ export default function Results() {
                   </div>
                   <Progress value={Math.abs(sri.dimensionScores.sexualShame) * 20} className="h-2" />
                 </div>
-                
+
                 <div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="font-medium">抑制优势 (SIS/SES)</span>
@@ -489,7 +489,7 @@ export default function Results() {
               {sri.scaleScores.map((score) => {
                 const scale = ALL_SCALES[score.scaleId];
                 if (!scale) return null;
-                
+
                 return (
                   <div key={score.scaleId} className="flex items-center justify-between p-4 bg-muted/30 rounded-lg">
                     <div>
@@ -575,7 +575,7 @@ export default function Results() {
                     这是一个由朋友分享的评估结果。想要获得属于自己的专业心理分析吗？
                   </p>
                   <div className="flex justify-center gap-3">
-                    <Button 
+                    <Button
                       onClick={() => navigate('/assessment')}
                       className="bg-psychology-primary hover:bg-psychology-primary/90"
                     >
@@ -605,11 +605,11 @@ export default function Results() {
               重新测评
             </Button>
           )}
-          
+
           {/* 大尺寸分享按钮（桌面端） */}
           {!isMobile && !isShared && (
-            <ShareResult 
-              session={session} 
+            <ShareResult
+              session={session}
               className="bg-psychology-accent hover:bg-psychology-accent/90 text-white border-psychology-accent"
             />
           )}

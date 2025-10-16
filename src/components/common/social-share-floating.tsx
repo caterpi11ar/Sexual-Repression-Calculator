@@ -3,13 +3,13 @@
  * 提供快速分享到各大社交平台的浮动按钮
  */
 
-import React, {useState} from 'react';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger,} from '@/components/ui/sheet';
-import {CheckCircle2, Copy, MessageCircle, Share2, Smartphone} from 'lucide-react';
-import {AssessmentSession} from '@/types';
-import {copyToClipboard, generateShareText, generateShareUrl, getDeviceInfo, socialShareUrls} from '@/lib/share-utils';
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger, } from '@/components/ui/sheet';
+import { CheckCircle2, Copy, MessageCircle, Share2, Smartphone } from 'lucide-react';
+import { AssessmentSession } from '@/types';
+import { copyToClipboard, generateShareText, generateShareUrl, getDeviceInfo, socialShareUrls } from '@/lib/share-utils';
 
 export interface SocialShareFloatingProps {
   session: AssessmentSession;
@@ -85,7 +85,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
           <Share2 className="w-6 h-6" />
         </Button>
       </SheetTrigger>
-      
+
       <SheetContent side="bottom" className="h-auto max-h-[80vh] overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">

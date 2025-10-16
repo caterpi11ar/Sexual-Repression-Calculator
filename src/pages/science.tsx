@@ -4,24 +4,24 @@
  */
 
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import {
-    Award,
-    BarChart3,
-    BookOpen,
-    Brain,
-    CheckCircle,
-    FileText,
-    Globe,
-    Home,
-    Microscope,
-    Shield,
-    Target,
-    TrendingUp,
-    Users
+  Award,
+  BarChart3,
+  BookOpen,
+  Brain,
+  CheckCircle,
+  FileText,
+  Globe,
+  Home,
+  Microscope,
+  Shield,
+  Target,
+  TrendingUp,
+  Users
 } from 'lucide-react';
 
 export default function Science() {
@@ -126,7 +126,7 @@ export default function Science() {
                     },
                     {
                       name: "Mosher性内疚量表",
-                      fullName: "Mosher Sexual Guilt Scale", 
+                      fullName: "Mosher Sexual Guilt Scale",
                       items: "10项",
                       author: "Mosher (1988)",
                       reliability: "α = 0.88-0.93",
@@ -136,7 +136,7 @@ export default function Science() {
                     {
                       name: "KISS-9性羞耻量表",
                       fullName: "Kyle Inventory of Sexual Shame",
-                      items: "9项", 
+                      items: "9项",
                       author: "Kyle et al. (2013)",
                       reliability: "α = 0.92-0.95",
                       desc: "测量个体对性身份、性想法和性行为的羞耻体验，捕捉深层的性自我概念问题。",
@@ -146,7 +146,7 @@ export default function Science() {
                       name: "SOS性观感量表",
                       fullName: "Sexual Opinion Survey",
                       items: "5项筛查版",
-                      author: "Fisher et al. (1988)", 
+                      author: "Fisher et al. (1988)",
                       reliability: "α = 0.82-0.89",
                       desc: "评估个体对性刺激和性相关内容的情绪取向，测量性开放性与保守性。",
                       color: "bg-psychology-warning/10 border-psychology-warning/20"

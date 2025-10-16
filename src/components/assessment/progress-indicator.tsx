@@ -4,10 +4,10 @@
  */
 
 import React from 'react';
-import {Progress} from '@/components/ui/progress';
-import {Card, CardContent} from '@/components/ui/card';
-import {Badge} from '@/components/ui/badge';
-import {Clock, Target, TrendingUp} from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Clock, Target, TrendingUp } from 'lucide-react';
 
 interface ProgressIndicatorProps {
   current: number;
@@ -53,14 +53,14 @@ export function ProgressIndicator({
                 <span className="font-semibold text-lg">
                   第 {current} 题 / 共 {total} 题
                 </span>
-                <Badge 
-                  variant="secondary" 
+                <Badge
+                  variant="secondary"
                   className={`${stage.textColor} bg-opacity-10`}
                 >
                   {stage.label}
                 </Badge>
               </div>
-              
+
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 {estimatedMinutes > 0 && (
                   <div className="flex items-center gap-1">
@@ -77,11 +77,11 @@ export function ProgressIndicator({
 
             {/* 进度条 */}
             <div className="space-y-2">
-              <Progress 
-                value={progress} 
+              <Progress
+                value={progress}
                 className="h-3 bg-muted"
               />
-              
+
               {/* 进度条下方的量表信息 */}
               {scaleName && (
                 <div className="flex justify-between items-center text-sm">

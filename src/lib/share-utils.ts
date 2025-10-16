@@ -3,8 +3,8 @@
  * 包括分享文案生成、URL构建、社交媒体分享链接等
  */
 
-import {AssessmentSession, SRI_LEVELS, SRIResult} from '@/types';
-import {getAssessmentSession} from '@/lib/storage';
+import { AssessmentSession, SRI_LEVELS, SRIResult } from '@/types';
+import { getAssessmentSession } from '@/lib/storage';
 
 /**
  * 生成分享文案
@@ -19,7 +19,7 @@ export function generateShareText(session: AssessmentSession): string {
   const sri = session.results.sri;
   const levelInfo = SRI_LEVELS[sri.level];
   const score = Math.round(sri.totalScore);
-  
+
   const templates = {
     'very-low': [
       `我的SRI性压抑指数是${score}分，属于${levelInfo.label}！看来我对性的态度比较开放健康呢 😊`,
@@ -47,10 +47,10 @@ export function generateShareText(session: AssessmentSession): string {
       `SRI测试结果：${score}分（${levelInfo.label}）。感谢这个专业工具让我更了解自己 💪`
     ]
   };
-  
+
   const levelTemplates = templates[sri.level];
   const randomTemplate = levelTemplates[Math.floor(Math.random() * levelTemplates.length)];
-  
+
   return `${randomTemplate}\n\n🧠 SRI性压抑指数计算器 - 基于科学心理测量学的专业评估工具\n帮助你更好地了解自己的性心理特征，促进心理健康发展！\n\n#SRI评估 #心理健康 #自我认知`;
 }
 
@@ -65,7 +65,7 @@ export function generateShareUrl(sessionId: string): string {
   if (!session || !session.results) {
     throw new Error('无法获取会话数据');
   }
-  
+
   // 创建分享数据对象（只包含展示需要的数据）
   const shareData = {
     sri: {
@@ -76,7 +76,7 @@ export function generateShareUrl(sessionId: string): string {
     type: session.type,
     completedAt: session.endTime?.toISOString() || new Date().toISOString()
   };
-  
+
   // 将数据编码到URL中
   const encodedData = btoa(JSON.stringify(shareData));
   const baseUrl = window.location.origin;
@@ -96,7 +96,7 @@ export async function copyToClipboard(text: string): Promise<void> {
       console.warn('Clipboard API failed, falling back to execCommand');
     }
   }
-  
+
   // 回退方案
   const textArea = document.createElement('textarea');
   textArea.value = text;
@@ -106,7 +106,7 @@ export async function copyToClipboard(text: string): Promise<void> {
   document.body.appendChild(textArea);
   textArea.focus();
   textArea.select();
-  
+
   try {
     document.execCommand('copy');
   } catch (error) {
@@ -125,7 +125,7 @@ export async function generateQRCode(text: string): Promise<string> {
   // 使用更安全的方式：直接返回第三方API URL，不进行Canvas处理
   const encodedText = encodeURIComponent(text);
   const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedText}`;
-  
+
   // 简单验证API是否可用
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -137,7 +137,7 @@ export async function generateQRCode(text: string): Promise<string> {
       // 如果API不可用，生成一个简单的文本二维码替代
       resolve(generateSimpleQRCode(text));
     };
-    
+
     // 设置crossOrigin以避免CORS问题
     img.crossOrigin = 'anonymous';
     img.src = qrApiUrl;
@@ -152,46 +152,46 @@ export async function generateQRCode(text: string): Promise<string> {
 function generateSimpleQRCode(text: string): string {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  
+
   if (!ctx) {
     throw new Error('无法创建画布');
   }
-  
+
   // 设置画布尺寸
   canvas.width = 200;
   canvas.height = 200;
-  
+
   // 绘制简单的二维码样式背景
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  
+
   // 绘制边框
   ctx.strokeStyle = '#000000';
   ctx.lineWidth = 2;
   ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-  
+
   // 绘制一些装饰性的方块（模拟二维码外观）
   ctx.fillStyle = '#000000';
   const blockSize = 8;
   const pattern = [
-    [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    [0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0],
-    [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1],
-    [1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,1,1,1,0,1,0,0,1,0,1,1,1,0,1],
-    [1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1],
-    [1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1]
+    [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1]
   ];
-  
+
   for (let y = 0; y < pattern.length; y++) {
     for (let x = 0; x < pattern[y].length; x++) {
       if (pattern[y][x] === 1) {
@@ -204,13 +204,13 @@ function generateSimpleQRCode(text: string): string {
       }
     }
   }
-  
+
   // 添加提示文字
   ctx.fillStyle = '#666666';
   ctx.font = '12px Arial, sans-serif';
   ctx.textAlign = 'center';
   ctx.fillText('扫码查看结果', canvas.width / 2, canvas.height - 15);
-  
+
   // 返回Canvas数据URL
   return canvas.toDataURL('image/png');
 }
@@ -224,7 +224,7 @@ function generateSimpleQRCode(text: string): string {
 export function socialShareUrls(text: string, url: string) {
   const encodedText = encodeURIComponent(text);
   const encodedUrl = encodeURIComponent(url);
-  
+
   return {
     weibo: `https://service.weibo.com/share/share.php?url=${encodedUrl}&title=${encodedText}&pic=`,
     wechat: `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodedUrl}`, // 微信通过二维码分享
@@ -247,7 +247,7 @@ export function getDeviceInfo() {
   const isWeChat = /MicroMessenger/i.test(userAgent);
   const isQQ = /QQ\//i.test(userAgent);
   const isWeibo = /Weibo/i.test(userAgent);
-  
+
   return {
     isMobile,
     isWeChat,
@@ -263,23 +263,23 @@ export function getDeviceInfo() {
  */
 export function getRecommendedShareMethod() {
   const deviceInfo = getDeviceInfo();
-  
+
   if (deviceInfo.isWeChat) {
     return 'wechat';
   }
-  
+
   if (deviceInfo.isQQ) {
     return 'qq';
   }
-  
+
   if (deviceInfo.isWeibo) {
     return 'weibo';
   }
-  
+
   if (deviceInfo.isMobile && navigator.share) {
     return 'native';
   }
-  
+
   return 'copy';
 }
 
@@ -292,12 +292,12 @@ export function decodeShareData(encodedData: string): { sri: Partial<SRIResult>,
   try {
     const decoded = atob(encodedData);
     const data = JSON.parse(decoded);
-    
+
     // 验证数据结构
     if (!data.sri || typeof data.sri.totalScore !== 'number' || !data.sri.level || !data.type) {
       return null;
     }
-    
+
     return data;
   } catch (error) {
     console.error('Failed to decode share data:', error);
@@ -314,7 +314,7 @@ export function formatShareData(session: AssessmentSession) {
   if (!session.results) {
     return null;
   }
-  
+
   return {
     timestamp: new Date().toISOString(),
     sri_score: Math.round(session.results.sri.totalScore),

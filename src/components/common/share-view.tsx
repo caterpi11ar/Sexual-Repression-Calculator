@@ -4,14 +4,14 @@
  */
 
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
-import {Separator} from '@/components/ui/separator';
-import {ArrowRight, BarChart3, Brain, CheckCircle, Heart, Home, Sparkles, Target, Users} from 'lucide-react';
-import {AssessmentSession, SRI_LEVELS} from '@/types';
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
+import { ArrowRight, BarChart3, Brain, CheckCircle, Heart, Home, Sparkles, Target, Users } from 'lucide-react';
+import { AssessmentSession, SRI_LEVELS } from '@/types';
 
 interface ShareViewProps {
   session: AssessmentSession;
@@ -62,9 +62,9 @@ export function ShareView({ session }: ShareViewProps) {
                 </p>
               </div>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => navigate('/')}
             >
               <Home className="w-4 h-4 mr-2" />
@@ -107,7 +107,7 @@ export function ShareView({ session }: ShareViewProps) {
             <div className="text-3xl sm:text-5xl font-bold text-psychology-primary mb-4">
               {Math.round(sri.totalScore)}
             </div>
-            <Badge 
+            <Badge
               className={`text-base px-4 py-2 ${getLevelColorClass(sri.level)}`}
               variant="outline"
             >
@@ -180,7 +180,7 @@ export function ShareView({ session }: ShareViewProps) {
                   免费完成专业的性心理健康评估，获得个性化的分析报告和改善建议
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
+                  <Button
                     size="lg"
                     onClick={() => navigate('/assessment')}
                     className="bg-psychology-primary hover:bg-psychology-primary/90 text-white px-8"
@@ -189,8 +189,8 @@ export function ShareView({ session }: ShareViewProps) {
                     开始我的评估
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="lg"
                     onClick={() => navigate('/')}
                     className="px-8"
@@ -217,7 +217,7 @@ export function ShareView({ session }: ShareViewProps) {
               </p>
             </CardContent>
           </Card>
-          
+
           <Card className="sri-card text-center">
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -229,7 +229,7 @@ export function ShareView({ session }: ShareViewProps) {
               </p>
             </CardContent>
           </Card>
-          
+
           <Card className="sri-card text-center">
             <CardContent className="p-6">
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">

@@ -3,8 +3,8 @@
  * 包含SIS/SES-SF、Mosher性内疚、KISS-9性羞耻、SOS筛查版等
  */
 
-import {FREQUENCY_OPTIONS, LIKERT_OPTIONS, Scale} from '@/types';
-import {SEXUAL_COGNITION, SIS_SES_ADAPTED, TEEN_SEXUAL_ATTITUDES} from './adaptive-scales';
+import { FREQUENCY_OPTIONS, LIKERT_OPTIONS, Scale } from '@/types';
+import { SEXUAL_COGNITION, SIS_SES_ADAPTED, TEEN_SEXUAL_ATTITUDES } from './adaptive-scales';
 
 // SIS/SES-SF 14项量表 (Sexual Inhibition/Sexual Excitation Scale - Short Form)
 export const SIS_SES_SF: Scale = {
@@ -22,7 +22,7 @@ export const SIS_SES_SF: Scale = {
       required: true
     },
     {
-      id: 'ses_2', 
+      id: 'ses_2',
       text: '性的画面或故事很容易让我兴奋',
       scale: 'sis_ses_sf',
       type: 'likert',

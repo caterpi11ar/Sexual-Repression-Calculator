@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
-import {Card} from '@/components/ui/card';
-import {Progress} from '@/components/ui/progress';
-import {BarChart3, Brain, Loader2, Shield} from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { BarChart3, Brain, Loader2, Shield } from 'lucide-react';
 
 interface LoadingScreenProps {
   title?: string;
@@ -29,7 +29,7 @@ export function LoadingScreen({
         <div className="w-16 h-16 bg-psychology-primary/10 rounded-full flex items-center justify-center mx-auto">
           <Brain className="w-8 h-8 text-psychology-primary animate-pulse" />
         </div>
-        
+
         <div>
           <h2 className="text-2xl font-bold text-psychology-primary mb-2">
             {title}
@@ -53,18 +53,17 @@ export function LoadingScreen({
             {steps.map((step, index) => {
               const isCompleted = index < currentStep;
               const isCurrent = index === currentStep;
-              
+
               return (
-                <div 
+                <div
                   key={index}
                   className={`
                     flex items-center gap-3 text-sm p-2 rounded transition-colors
-                    ${
-                      isCompleted 
-                        ? 'text-green-600 bg-green-50' 
-                        : isCurrent 
-                          ? 'text-psychology-primary bg-psychology-primary/5'
-                          : 'text-muted-foreground'
+                    ${isCompleted
+                      ? 'text-green-600 bg-green-50'
+                      : isCurrent
+                        ? 'text-psychology-primary bg-psychology-primary/5'
+                        : 'text-muted-foreground'
                     }
                   `}
                 >

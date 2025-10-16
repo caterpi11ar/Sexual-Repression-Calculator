@@ -3,47 +3,48 @@
  * 提供评估历史浏览、结果对比、数据导出等功能
  */
 
-import React, {useEffect, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
-import {Button} from '@/components/ui/button';
-import {Badge} from '@/components/ui/badge';
-import {Progress} from '@/components/ui/progress';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import {
-    AlertCircle,
-    BarChart3,
-    Calendar,
-    Clock,
-    Download,
-    Eye,
-    FileText,
-    Home,
-    RefreshCw,
-    Trash2,
-    TrendingUp,
-    Users
+  AlertCircle,
+  BarChart3,
+  Calendar,
+  Clock,
+  Download,
+  Eye,
+  FileText,
+  Home,
+  RefreshCw,
+  Trash2,
+  TrendingUp,
+  Users
 } from 'lucide-react';
-import {AssessmentSession, SRI_LEVELS} from '@/types';
+import { AssessmentSession, SRI_LEVELS } from '@/types';
 import {
-    clearAllSessions,
-    deleteAssessmentSession,
-    downloadAsCSV,
-    downloadAsJSON,
-    exportAllSessionsData,
-    getAllAssessmentSessions
+  clearAllSessions,
+  deleteAssessmentSession,
+  downloadAsCSV,
+  downloadAsJSON,
+  exportAllSessionsData,
+  getAllAssessmentSessions
 } from '@/lib/storage';
-import {formatDemographicsForDisplay} from '@/lib/demographics-utils';
+import { formatDemographicsForDisplay } from '@/lib/demographics-utils';
+import { t } from '@/locales/i18n'
 
 export default function History() {
   const [sessions, setSessions] = useState<AssessmentSession[]>([]);
@@ -86,7 +87,7 @@ export default function History() {
     try {
       const data = exportAllSessionsData();
       const timestamp = new Date().toISOString().split('T')[0];
-      
+
       if (format === 'json') {
         downloadAsJSON(data, `sri-assessment-history-${timestamp}.json`);
       } else {
@@ -113,7 +114,7 @@ export default function History() {
     completed: sessions.filter(s => s.completed).length,
     quick: sessions.filter(s => s.type === 'quick').length,
     full: sessions.filter(s => s.type === 'full').length,
-    avgScore: sessions.filter(s => s.results).length > 0 
+    avgScore: sessions.filter(s => s.results).length > 0
       ? Math.round(sessions.filter(s => s.results).reduce((sum, s) => sum + (s.results?.sri.totalScore || 0), 0) / sessions.filter(s => s.results).length)
       : 0
   };
@@ -123,7 +124,7 @@ export default function History() {
       <div className="min-h-screen bg-gradient-to-b from-psychology-calm to-psychology-warm flex items-center justify-center">
         <div className="text-center">
           <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-psychology-primary" />
-          <p className="text-lg text-muted-foreground">加载历史记录...</p>
+          <p className="text-lg text-muted-foreground">{t('history.loading')}</p>
         </div>
       </div>
     );
@@ -195,7 +196,7 @@ export default function History() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
@@ -207,7 +208,7 @@ export default function History() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
@@ -219,14 +220,14 @@ export default function History() {
                   </div>
                 </CardContent>
               </Card>
-              
+
               <Card>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-muted-foreground">测评类型</p>
                       <p className="text-sm">
-                        <span className="text-psychology-primary font-semibold">{stats.quick}</span> 快测 / 
+                        <span className="text-psychology-primary font-semibold">{stats.quick}</span> 快测 /
                         <span className="text-psychology-secondary font-semibold">{stats.full}</span> 完整
                       </p>
                     </div>
@@ -246,7 +247,7 @@ export default function History() {
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-3">
-                  <Button 
+                  <Button
                     onClick={() => handleExportAll('json')}
                     variant="outline"
                     className="flex items-center gap-2"
@@ -254,7 +255,7 @@ export default function History() {
                     <Download className="w-4 h-4" />
                     导出JSON
                   </Button>
-                  <Button 
+                  <Button
                     onClick={() => handleExportAll('csv')}
                     variant="outline"
                     className="flex items-center gap-2"
@@ -262,7 +263,7 @@ export default function History() {
                     <Download className="w-4 h-4" />
                     导出CSV
                   </Button>
-                  
+
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button variant="destructive" className="flex items-center gap-2">
@@ -293,16 +294,16 @@ export default function History() {
                 <FileText className="w-5 h-5" />
                 测评记录
               </h2>
-              
+
               {sessions.map((session) => {
                 const sriInfo = session.results ? getSRILevelInfo(session.results.sri.totalScore) : null;
-                const duration = session.endTime && session.startTime 
-                  ? Math.round((session.endTime.getTime() - session.startTime.getTime()) / 60000) 
+                const duration = session.endTime && session.startTime
+                  ? Math.round((session.endTime.getTime() - session.startTime.getTime()) / 60000)
                   : null;
-                
+
                 // 格式化人口学信息为可读文字
                 const formattedDemographics = formatDemographicsForDisplay(session.demographics);
-                
+
                 return (
                   <Card key={session.id} className="hover:shadow-lg transition-shadow">
                     <CardContent className="p-6">
@@ -312,10 +313,10 @@ export default function History() {
                           <div className="flex items-start justify-between mb-4">
                             <div>
                               <div className="flex items-center gap-2 mb-2">
-                                <Badge 
+                                <Badge
                                   variant={session.type === 'quick' ? 'default' : 'secondary'}
-                                  className={session.type === 'quick' 
-                                    ? 'bg-psychology-primary text-white' 
+                                  className={session.type === 'quick'
+                                    ? 'bg-psychology-primary text-white'
                                     : 'bg-psychology-secondary text-white'
                                   }
                                 >
@@ -347,14 +348,14 @@ export default function History() {
                               )}
                             </div>
                           </div>
-                          
+
                           <div className="text-sm text-muted-foreground space-y-1">
                             <p>年龄：{formattedDemographics.age}</p>
                             <p>性别：{formattedDemographics.gender}</p>
                             <p>关系状态：{formattedDemographics.relationshipStatus}</p>
                           </div>
                         </div>
-                        
+
                         {/* 结果展示 */}
                         <div className="lg:col-span-1">
                           {session.results && sriInfo ? (
@@ -365,16 +366,16 @@ export default function History() {
                                 </div>
                                 <div className="text-xs text-muted-foreground">SRI 指数</div>
                               </div>
-                              <Badge 
-                                variant="outline" 
+                              <Badge
+                                variant="outline"
                                 className={`text-${sriInfo.color} border-${sriInfo.color}`}
                               >
                                 {sriInfo.label}
                               </Badge>
                               <div className="mt-3">
-                                <Progress 
-                                  value={session.results.sri.totalScore} 
-                                  className="h-2" 
+                                <Progress
+                                  value={session.results.sri.totalScore}
+                                  className="h-2"
                                 />
                               </div>
                             </div>
@@ -385,14 +386,14 @@ export default function History() {
                             </div>
                           )}
                         </div>
-                        
+
                         {/* 操作按钮 */}
                         <div className="lg:col-span-1">
                           <div className="flex flex-col gap-2">
                             {session.completed && session.results ? (
-                              <Button 
-                                asChild 
-                                size="sm" 
+                              <Button
+                                asChild
+                                size="sm"
                                 className="flex items-center gap-2"
                               >
                                 <Link to={`/results?sessionId=${session.id}`}>
@@ -401,9 +402,9 @@ export default function History() {
                                 </Link>
                               </Button>
                             ) : (
-                              <Button 
-                                asChild 
-                                size="sm" 
+                              <Button
+                                asChild
+                                size="sm"
                                 variant="outline"
                                 className="flex items-center gap-2"
                               >
@@ -413,12 +414,12 @@ export default function History() {
                                 </Link>
                               </Button>
                             )}
-                            
+
                             <AlertDialog>
                               <AlertDialogTrigger asChild>
-                                <Button 
-                                  size="sm" 
-                                  variant="ghost" 
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
                                   className="flex items-center gap-2 text-destructive hover:text-destructive"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -434,7 +435,7 @@ export default function History() {
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                   <AlertDialogCancel>取消</AlertDialogCancel>
-                                  <AlertDialogAction 
+                                  <AlertDialogAction
                                     onClick={() => handleDeleteSession(session.id)}
                                   >
                                     确认删除
