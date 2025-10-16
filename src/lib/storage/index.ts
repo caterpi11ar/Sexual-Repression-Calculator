@@ -250,7 +250,7 @@ export function exportAllSessionsData(): ExportData[] {
  * @param data 要下载的数据
  * @param filename 文件名
  */
-export function downloadAsJSON(data: Record<string, unknown>, filename: string): void {
+export function downloadAsJSON<T = unknown>(data: T, filename: string): void {
   try {
     const blob = new Blob([JSON.stringify(data, null, 2)], {
       type: 'application/json'

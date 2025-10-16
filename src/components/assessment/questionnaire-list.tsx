@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, }
 import { AlertCircle, ArrowLeft, ArrowUp, BarChart3, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Demographics, Question, Response } from '@/types';
 import { ALL_SCALES, getAdaptiveFullScales, getAdaptiveScales, getUserGroupDescription } from '@/lib/scales';
+import { useTranslation } from 'react-i18next';
 
 interface QuestionnaireListProps {
   type: 'quick' | 'full';
@@ -33,6 +34,7 @@ interface PaginationProps {
 }
 
 function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationProps) {
+  const { t } = useTranslation();
   const canGoPrev = currentPage > 0;
   const canGoNext = currentPage < totalPages - 1;
   const scrollContainerRef = React.useRef<HTMLDivElement>(null);
@@ -79,7 +81,7 @@ function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationProp
         className="flex items-center gap-1 sm:gap-2 transition-all hover:scale-105 disabled:hover:scale-100 shrink-0 h-9 px-2 sm:px-4"
       >
         <ChevronLeft className="w-4 h-4" />
-        <span className="hidden sm:inline text-sm">上一页</span>
+        <span className="hidden sm:inline text-sm">{t('component.questionnaireList.previousPage')}</span>
       </Button>
 
       <div className="flex items-center gap-2 flex-1 min-w-0">
@@ -104,7 +106,7 @@ function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationProp
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:scale-105'
                 }
               `}
-              aria-label={`第 ${i + 1} 页`}
+              aria-label={t('component.questionnaireList.pageNumber', { page: i + 1 })}
               aria-current={i === currentPage ? 'page' : undefined}
             >
               {i + 1}
@@ -119,7 +121,7 @@ function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationProp
         disabled={!canGoNext}
         className="flex items-center gap-1 sm:gap-2 transition-all hover:scale-105 disabled:hover:scale-100 shrink-0 h-9 px-2 sm:px-4"
       >
-        <span className="hidden sm:inline text-sm">下一页</span>
+        <span className="hidden sm:inline text-sm">{t('component.questionnaireList.nextPage')}</span>
         <ChevronRight className="w-4 h-4" />
       </Button>
     </div>
@@ -135,6 +137,7 @@ export function QuestionnaireList({
   onBack,
   resumeToken
 }: QuestionnaireListProps) {
+  const { t } = useTranslation();
   // 根据用户特征选择适应性量表
   const getScalesForUser = () => {
     if (type === 'quick') {
@@ -333,7 +336,7 @@ export function QuestionnaireList({
         });
       }
 
-      alert(`还有 ${stats.requiredUnanswered} 道必答题未完成，请继续填写。`);
+      alert(t('component.questionnaireList.remainingRequiredAlert', { count: stats.requiredUnanswered }));
       return;
     }
 
@@ -402,24 +405,24 @@ export function QuestionnaireList({
             <div>
               <CardTitle className="flex items-center gap-2">
                 <BarChart3 className="w-5 h-5 text-psychology-primary" />
-                问卷评估进度
+                {t('component.questionnaireList.title')}
               </CardTitle>
               <div className="flex items-center gap-2 mt-2">
                 <Badge variant="secondary" className="text-psychology-primary">
                   {userGroup}
                 </Badge>
                 <Badge variant="outline">
-                  {type === 'quick' ? '快测版' : '完整版'}
+                  {type === 'quick' ? t('component.questionnaireList.quickVersion') : t('component.questionnaireList.fullVersion')}
                 </Badge>
               </div>
             </div>
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="text-psychology-primary border-psychology-primary">
-                {stats.answered} / {allQuestions.length} 已完成
+                {t('component.questionnaireList.completed', { answered: stats.answered, total: allQuestions.length })}
               </Badge>
               {lastSaved && (
                 <Badge variant="secondary" className="text-xs">
-                  已保存 {lastSaved.toLocaleTimeString()}
+                  {t('component.questionnaireList.savedAt', { time: lastSaved.toLocaleTimeString() })}
                 </Badge>
               )}
             </div>
@@ -431,15 +434,15 @@ export function QuestionnaireList({
           <div className="grid grid-cols-3 gap-2 sm:gap-4">
             <div className="text-center p-3 bg-green-50 rounded-lg">
               <div className="text-2xl font-bold text-green-600">{stats.answered}</div>
-              <div className="text-sm text-green-600">已回答</div>
+              <div className="text-sm text-green-600">{t('component.questionnaireList.answered')}</div>
             </div>
             <div className="text-center p-3 bg-yellow-50 rounded-lg">
               <div className="text-2xl font-bold text-yellow-600">{stats.unanswered}</div>
-              <div className="text-sm text-yellow-600">未回答</div>
+              <div className="text-sm text-yellow-600">{t('component.questionnaireList.unanswered')}</div>
             </div>
             <div className="text-center p-3 bg-red-50 rounded-lg">
               <div className="text-2xl font-bold text-red-600">{stats.requiredUnanswered}</div>
-              <div className="text-sm text-red-600">必答未完成</div>
+              <div className="text-sm text-red-600">{t('component.questionnaireList.requiredUnanswered')}</div>
             </div>
           </div>
         </CardContent>
@@ -516,7 +519,7 @@ export function QuestionnaireList({
                           </Badge>
                           {question.required && (
                             <Badge variant="destructive" className="text-xs">
-                              必答
+                              {t('component.questionCard.required')}
                             </Badge>
                           )}
                           {isAnswered && (
@@ -586,7 +589,7 @@ export function QuestionnaireList({
                     {question.required && !isAnswered && (
                       <div className="flex items-center gap-2 mt-3 text-red-600">
                         <AlertCircle className="w-4 h-4" />
-                        <span className="text-sm">此题为必答题</span>
+                        <span className="text-sm">{t('component.questionnaireList.requiredQuestion')}</span>
                       </div>
                     )}
                   </div>
@@ -620,18 +623,18 @@ export function QuestionnaireList({
                 className="flex items-center gap-2 transition-all hover:scale-105"
               >
                 <ArrowLeft className="w-4 h-4" />
-                返回上一步
+                {t('component.questionnaireList.backToStep')}
               </Button>
 
               <div className="text-center flex-1">
                 {usesPagination && stats.requiredUnanswered > 0 && (
                   <p className="text-sm text-amber-600 mb-2">
-                    还有未完成的题目，请继续填写或查看其他页面
+                    {t('component.questionnaireList.remainingQuestions')}
                   </p>
                 )}
                 {!usesPagination && (
                   <p className="text-sm text-muted-foreground mb-2">
-                    请确保所有必答题都已完成
+                    {t('component.questionnaireList.ensureRequired')}
                   </p>
                 )}
                 <Button
@@ -640,19 +643,19 @@ export function QuestionnaireList({
                   className="bg-psychology-primary hover:bg-psychology-primary/90 px-8 transition-all hover:scale-105"
                   size="lg"
                 >
-                  完成评估并查看结果
+                  {t('component.questionnaireList.completeAssessment')}
                   <CheckCircle className="w-4 h-4 ml-2" />
                 </Button>
               </div>
 
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">
-                  进度: {Math.round(progress)}%
+                  {t('component.questionnaireList.progress', { progress: Math.round(progress) })}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {stats.requiredUnanswered > 0
-                    ? `还有 ${stats.requiredUnanswered} 道必答题`
-                    : '所有必答题已完成'
+                    ? t('component.questionnaireList.remainingRequired', { count: stats.requiredUnanswered })
+                    : t('component.questionnaireList.allRequiredCompleted')
                   }
                 </p>
               </div>
@@ -675,7 +678,7 @@ export function QuestionnaireList({
             hover:scale-110 active:scale-95
             animate-in fade-in slide-in-from-bottom-4
           "
-          aria-label="回到顶部"
+          aria-label={t('component.questionnaireList.backToTop')}
         >
           <ArrowUp className="w-5 h-5" />
         </button>
@@ -686,7 +689,7 @@ export function QuestionnaireList({
         <DialogContent className="max-w-[calc(100%-2rem)] sm:max-w-sm">
           <DialogHeader>
             <DialogDescription className="text-center text-base pt-4">
-              您确定要离开答题区域吗？
+              {t('component.questionnaireList.confirmLeave')}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-center gap-2">
@@ -695,13 +698,13 @@ export function QuestionnaireList({
               onClick={() => setShowBackConfirm(false)}
               className="transition-all hover:scale-105"
             >
-              取消
+              {t('component.questionnaireList.cancel')}
             </Button>
             <Button
               onClick={confirmBack}
               className="bg-psychology-primary hover:bg-psychology-primary/90 transition-all hover:scale-105"
             >
-              确认
+              {t('component.questionnaireList.confirm')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -710,8 +713,7 @@ export function QuestionnaireList({
       {/* 底部说明 */}
       <div className="text-center py-4">
         <p className="text-xs text-muted-foreground max-w-2xl mx-auto">
-          请根据您的真实感受选择最符合的选项。所有回答都将被严格保密，仅用于生成您的个人评估报告。
-          您可以随时修改之前的回答。
+          {t('component.questionnaireList.privacyNote')}
         </p>
       </div>
     </div>

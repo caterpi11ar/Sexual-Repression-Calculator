@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { useTranslation } from 'react-i18next';
 
 export default function BackToTopButton() {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export default function BackToTopButton() {
     >
       <button
         onClick={scrollToTop}
-        aria-label="回到顶部"
+        aria-label={t('common.back')}
         className="w-12 h-12 rounded-full 
                    bg-psychology-primary text-white 
                    shadow-lg hover:shadow-xl 

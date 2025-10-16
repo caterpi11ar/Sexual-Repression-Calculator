@@ -5,6 +5,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -27,6 +29,8 @@ import {
 } from 'lucide-react';
 
 export default function Guide() {
+  const { t } = useTranslation();
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-psychology-calm via-background to-psychology-warm">
       {/* 装饰背景 */}
@@ -46,11 +50,12 @@ export default function Guide() {
             </Link>
             <div className="flex items-center space-x-4">
               <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                首页
+                {t('nav.home')}
               </Link>
               <Link to="/science" className="text-muted-foreground hover:text-foreground transition-colors">
-                科学依据
+                {t('nav.menu.science')}
               </Link>
+              <LanguageSwitcher variant="dropdown" size="sm" />
             </div>
           </div>
         </div>
@@ -61,10 +66,10 @@ export default function Guide() {
         <div className="text-center mb-12">
           <BookOpen className="w-16 h-16 text-psychology-primary mx-auto mb-6" />
           <h1 className="text-4xl font-bold text-foreground mb-4">
-            使用指南
+            {t('nav.menu.guide')}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            详细了解如何正确使用性压抑指数(SRI)评估工具，获得准确可靠的测评结果
+            {t('guide.subtitle')}
           </p>
         </div>
 
@@ -74,7 +79,7 @@ export default function Guide() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Target className="w-6 h-6 text-psychology-primary" />
-                快速开始
+                {t('guide.quick_start.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -82,44 +87,44 @@ export default function Guide() {
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Badge variant="secondary" className="bg-psychology-primary/10 text-psychology-primary">
-                      快测版
+                      {t('guide.quick_start.quick_badge')}
                     </Badge>
-                    <span className="text-sm text-muted-foreground">推荐首次使用</span>
+                    <span className="text-sm text-muted-foreground">{t('guide.quick_start.quick_recommend')}</span>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-psychology-secondary" />
-                      <span>约 8-15 分钟</span>
+                      <span>{t('guide.quick_start.quick_duration')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <FileText className="w-4 h-4 text-psychology-secondary" />
-                      <span>39 道核心题目</span>
+                      <span>{t('guide.quick_start.quick_questions')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-4 h-4 text-psychology-success" />
-                      <span>涵盖四个核心维度</span>
+                      <span>{t('guide.quick_start.quick_coverage')}</span>
                     </div>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
                     <Badge variant="secondary" className="bg-psychology-accent/10 text-psychology-accent">
-                      完整版
+                      {t('guide.quick_start.full_badge')}
                     </Badge>
-                    <span className="text-sm text-muted-foreground">深度分析</span>
+                    <span className="text-sm text-muted-foreground">{t('guide.quick_start.full_recommend')}</span>
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-psychology-secondary" />
-                      <span>约 25-40 分钟</span>
+                      <span>{t('guide.quick_start.full_duration')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <FileText className="w-4 h-4 text-psychology-secondary" />
-                      <span>78 道详细题目</span>
+                      <span>{t('guide.quick_start.full_questions')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Brain className="w-4 h-4 text-psychology-accent" />
-                      <span>更全面的心理分析</span>
+                      <span>{t('guide.quick_start.full_analysis')}</span>
                     </div>
                   </div>
                 </div>
@@ -132,17 +137,17 @@ export default function Guide() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <ArrowRight className="w-6 h-6 text-psychology-secondary" />
-                测评流程
+                {t('guide.process.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
                 <div className="grid gap-4">
                   {[
-                    { step: 1, title: "知情同意", desc: "阅读并同意参与测评的条款", icon: Shield },
-                    { step: 2, title: "基本信息", desc: "填写必要的人口学信息（完全匿名）", icon: Users },
-                    { step: 3, title: "问卷作答", desc: "按照个人实际情况诚实回答问题", icon: FileText },
-                    { step: 4, title: "查看结果", desc: "获得详细的SRI指数分析报告", icon: Brain }
+                    { step: 1, title: t('guide.process.step1.title'), desc: t('guide.process.step1.desc'), icon: Shield },
+                    { step: 2, title: t('guide.process.step2.title'), desc: t('guide.process.step2.desc'), icon: Users },
+                    { step: 3, title: t('guide.process.step3.title'), desc: t('guide.process.step3.desc'), icon: FileText },
+                    { step: 4, title: t('guide.process.step4.title'), desc: t('guide.process.step4.desc'), icon: Brain }
                   ].map(({ step, title, desc, icon: Icon }) => (
                     <div key={step} className="flex items-start gap-4 p-4 bg-muted/30 rounded-lg">
                       <div className="flex-shrink-0 w-8 h-8 bg-psychology-primary text-white rounded-full flex items-center justify-center text-sm font-semibold">
@@ -167,33 +172,33 @@ export default function Guide() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Lightbulb className="w-6 h-6 text-psychology-warning" />
-                答题建议
+                {t('guide.tips.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-4">
                 {[
                   {
-                    title: "诚实作答",
-                    desc: "请根据您的真实想法和感受作答，没有标准答案",
+                    title: t('guide.tips.honest.title'),
+                    desc: t('guide.tips.honest.desc'),
                     icon: Heart,
                     color: "text-psychology-success"
                   },
                   {
-                    title: "直觉反应",
-                    desc: "相信第一直觉，不要过度思考每个问题",
+                    title: t('guide.tips.intuition.title'),
+                    desc: t('guide.tips.intuition.desc'),
                     icon: Brain,
                     color: "text-psychology-primary"
                   },
                   {
-                    title: "完整作答",
-                    desc: "尽量完成所有问题，跳过太多会影响结果准确性",
+                    title: t('guide.tips.complete.title'),
+                    desc: t('guide.tips.complete.desc'),
                     icon: Target,
                     color: "text-psychology-secondary"
                   },
                   {
-                    title: "隐私环境",
-                    desc: "在私密、不被打扰的环境中完成测评",
+                    title: t('guide.tips.privacy.title'),
+                    desc: t('guide.tips.privacy.desc'),
                     icon: Shield,
                     color: "text-psychology-accent"
                   }
@@ -215,7 +220,7 @@ export default function Guide() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3 text-psychology-warning">
                 <AlertTriangle className="w-6 h-6" />
-                重要注意事项
+                {t('guide.notice.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -223,19 +228,19 @@ export default function Guide() {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-psychology-warning rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>非诊断工具：</strong>SRI指数仅供自我了解和学术研究，不能替代专业心理咨询或医疗诊断</span>
+                    <span><strong>{t('guide.notice.non_diagnostic')}</strong></span>
                   </div>
                   <div className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-psychology-warning rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>隐私保护：</strong>所有数据仅在您的设备本地存储，不会上传到任何服务器</span>
+                    <span><strong>{t('guide.notice.privacy')}</strong></span>
                   </div>
                   <div className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-psychology-warning rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>适用年龄：</strong>本测评适用于18岁以上成年人，未成年人请在监护人指导下使用</span>
+                    <span><strong>{t('guide.notice.age')}</strong></span>
                   </div>
                   <div className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 bg-psychology-warning rounded-full mt-2 flex-shrink-0"></div>
-                    <span><strong>心理健康：</strong>如果在测评过程中感到强烈不适，请立即停止并寻求专业帮助</span>
+                    <span><strong>{t('guide.notice.mental_health')}</strong></span>
                   </div>
                 </div>
               </div>
@@ -247,20 +252,20 @@ export default function Guide() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Info className="w-6 h-6 text-psychology-secondary" />
-                结果解读指南
+                {t('guide.interpretation.title')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-4">
                 <div>
-                  <h4 className="font-semibold text-foreground mb-2">SRI指数范围</h4>
+                  <h4 className='font-semibold text-foreground mb-2'>{t('guide.interpretation.range_title')}</h4>
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-2 text-sm">
                     {[
-                      { range: "0-20", label: "很低", color: "bg-psychology-success/10 text-psychology-success" },
-                      { range: "20-40", label: "偏低", color: "bg-green-100 text-green-700" },
-                      { range: "40-60", label: "中等", color: "bg-yellow-100 text-yellow-700" },
-                      { range: "60-80", label: "偏高", color: "bg-psychology-warning/10 text-psychology-warning" },
-                      { range: "80-100", label: "很高", color: "bg-psychology-danger/10 text-psychology-danger" }
+                      { range: "0-20", label: t('guide.interpretation.range.very_low'), color: "bg-psychology-success/10 text-psychology-success" },
+                      { range: "20-40", label: t('guide.interpretation.range.low'), color: "bg-green-100 text-green-700" },
+                      { range: "40-60", label: t('guide.interpretation.range.moderate'), color: "bg-yellow-100 text-yellow-700" },
+                      { range: "60-80", label: t('guide.interpretation.range.high'), color: "bg-psychology-warning/10 text-psychology-warning" },
+                      { range: "80-100", label: t('guide.interpretation.range.very_high'), color: "bg-psychology-danger/10 text-psychology-danger" }
                     ].map(({ range, label, color }) => (
                       <div key={range} className={`p-2 rounded text-center ${color}`}>
                         <div className="font-medium">{range}</div>
@@ -271,13 +276,13 @@ export default function Guide() {
                 </div>
                 <Separator />
                 <div>
-                  <h4 className="font-semibold text-foreground mb-2">四个维度</h4>
+                  <h4 className='font-semibold text-foreground mb-2'>{t('guide.interpretation.dimensions_title')}</h4>
                   <div className="grid md:grid-cols-2 gap-3 text-sm">
                     {[
-                      { name: "性观感反向", desc: "对性刺激的消极情绪反应" },
-                      { name: "性内疚", desc: "性相关的内疚感和道德负担" },
-                      { name: "性羞耻", desc: "性身份和行为的羞耻体验" },
-                      { name: "抑制优势", desc: "性抑制相对于性兴奋的优势程度" }
+                      { name: t('guide.interpretation.dimension1.name'), desc: t('guide.interpretation.dimension1.desc') },
+                      { name: t('guide.interpretation.dimension2.name'), desc: t('guide.interpretation.dimension2.desc') },
+                      { name: t('guide.interpretation.dimension3.name'), desc: t('guide.interpretation.dimension3.desc') },
+                      { name: t('guide.interpretation.dimension4.name'), desc: t('guide.interpretation.dimension4.desc') }
                     ].map(({ name, desc }) => (
                       <div key={name} className="p-3 bg-muted/30 rounded">
                         <div className="font-medium text-foreground">{name}</div>
@@ -296,20 +301,20 @@ export default function Guide() {
               <Button size="lg" asChild className="bg-psychology-primary hover:bg-psychology-primary/90">
                 <Link to="/assessment?type=quick" className="flex items-center gap-2">
                   <Brain className="w-5 h-5" />
-                  开始快速测评
+                  {t('guide.actions.quick_start')}
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link to="/assessment?type=full" className="flex items-center gap-2">
                   <FileText className="w-5 h-5" />
-                  完整版测评
+                  {t('guide.actions.full_start')}
                 </Link>
               </Button>
             </div>
             <Button variant="ghost" asChild>
               <Link to="/" className="flex items-center gap-2">
                 <Home className="w-4 h-4" />
-                返回首页
+                {t('guide.actions.back_home')}
               </Link>
             </Button>
           </div>

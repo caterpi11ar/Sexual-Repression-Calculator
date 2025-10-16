@@ -29,8 +29,11 @@ import { ALL_SCALES } from '@/lib/scales';
 import { ShareButtonMobile, ShareResult, SocialShareFloating } from '@/components/common';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { decodeShareData } from '@/lib/share-utils';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export default function Results() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   // 支持多种参数名称以提高兼容性
@@ -77,8 +80,8 @@ export default function Results() {
                 },
                 scaleScores: []
               },
-              interpretation: ['这是一个分享的评估结果。'],
-              recommendations: ['如果您想获得个性化的详细分析，请开始您自己的评估。'],
+              interpretation: [t('results.share.virtual.interpretation')],
+              recommendations: [t('results.share.virtual.recommendation')],
               calculatedAt: new Date(decoded.completedAt)
             },
             startTime: new Date(decoded.completedAt),
@@ -90,13 +93,13 @@ export default function Results() {
           setLoading(false);
           return;
         } else {
-          setError('分享链接数据无效');
+          setError(t('results.error.share_invalid'));
           setLoading(false);
           return;
         }
       } catch (err) {
         console.error('Error decoding share data:', err);
-        setError('无法解析分享链接');
+        setError(t('results.error.share_decode'));
         setLoading(false);
         return;
       }
@@ -108,7 +111,7 @@ export default function Results() {
       // 运行存储诊断
       const diagnosis = diagnoseStorage();
       console.log('Storage diagnosis:', diagnosis);
-      setError('未找到评估会话ID。请确保从历史记录页面正确访问。');
+      setError(t('results.error.no_session_id'));
       setLoading(false);
       return;
     }
@@ -123,13 +126,13 @@ export default function Results() {
       console.log('Found session:', assessmentSession ? 'Yes' : 'No');
 
       if (!assessmentSession) {
-        setError(`未找到会话ID为 "${sessionId}" 的评估记录。可能已被删除或损坏。`);
+        setError(t('results.error.session_not_found', { sessionId }));
         setLoading(false);
         return;
       }
 
       if (!assessmentSession.results) {
-        setError('该评估尚未完成，无法查看结果。请先完成评估。');
+        setError(t('results.error.not_completed'));
         setLoading(false);
         return;
       }
@@ -138,12 +141,12 @@ export default function Results() {
       setSession(assessmentSession);
     } catch (err) {
       console.error('Error loading session:', err);
-      const errorMessage = err instanceof Error ? err.message : '未知错误';
-      setError(`加载评估结果时发生错误: ${errorMessage}`);
+      const errorMessage = err instanceof Error ? err.message : t('results.error.load_failed', { error: 'Unknown error' });
+      setError(t('results.error.load_failed', { error: errorMessage }));
     } finally {
       setLoading(false);
     }
-  }, [sessionId, isShared, shareData]);
+  }, [sessionId, isShared, shareData, searchParams, t]);
 
   // 下载结果
   const handleDownload = () => {
@@ -161,7 +164,7 @@ export default function Results() {
       }, {} as Record<string, number>)
     };
 
-    downloadAsJSON(exportData, `SRI评估结果_${new Date().toISOString().split('T')[0]}.json`);
+    downloadAsJSON(exportData, `SRI_Results_${new Date().toISOString().split('T')[0]}.json`);
   };
 
   // 重新测评
@@ -176,7 +179,6 @@ export default function Results() {
 
   // 获取等级颜色类
   const getLevelColorClass = (level: keyof typeof SRI_LEVELS) => {
-    const levelInfo = getLevelInfo(level);
     switch (level) {
       case 'very-low':
         return 'text-green-600 bg-green-50 border-green-200';
@@ -202,8 +204,8 @@ export default function Results() {
               <RefreshCw className="w-8 h-8 text-psychology-primary animate-spin" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold mb-2">加载结果中</h2>
-              <p className="text-muted-foreground">正在获取您的评估结果...</p>
+              <h2 className="text-xl font-semibold mb-2">{t('results.loading.title')}</h2>
+              <p className="text-muted-foreground">{t('results.loading.description')}</p>
             </div>
           </div>
         </Card>
@@ -220,45 +222,45 @@ export default function Results() {
               <AlertCircle className="w-8 h-8 text-red-600" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold mb-2 text-red-600">加载失败</h2>
+              <h2 className="text-xl font-semibold mb-2 text-red-600">{t('results.error.title')}</h2>
               <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                {error || '未找到评估结果'}
+                {error || t('results.error.not_found')}
               </p>
 
               {/* 调试信息（开发环境） */}
               {process.env.NODE_ENV === 'development' && (
                 <div className="bg-gray-50 p-3 rounded-lg text-left text-xs text-gray-600 mb-4">
-                  <div><strong>调试信息:</strong></div>
-                  <div>会话ID: {sessionId || '无'}</div>
-                  <div>URL参数: {JSON.stringify(Object.fromEntries(searchParams.entries()))}</div>
-                  <div>有会话: {session ? '是' : '否'}</div>
-                  <div>有结果: {session?.results ? '是' : '否'}</div>
+                  <div><strong>{t('results.debug.title')}</strong></div>
+                  <div>{t('results.debug.session_id', { sessionId: sessionId || 'None' })}</div>
+                  <div>{t('results.debug.url_params', { params: JSON.stringify(Object.fromEntries(searchParams.entries())) })}</div>
+                  <div>{t('results.debug.has_session', { hasSession: session ? 'Yes' : 'No' })}</div>
+                  <div>{t('results.debug.has_results', { hasResults: session?.results ? 'Yes' : 'No' })}</div>
                 </div>
               )}
 
               {/* 解决建议 */}
               <div className="bg-blue-50 p-4 rounded-lg mb-4 text-left">
-                <h3 className="font-semibold text-blue-800 mb-2">可能的解决方法:</h3>
+                <h3 className="font-semibold text-blue-800 mb-2">{t('results.solutions.title')}</h3>
                 <ul className="text-sm text-blue-700 space-y-1">
-                  <li>• 确保从历史记录页面正确点击"查看结果"</li>
-                  <li>• 检查是否意外删除了评估记录</li>
-                  <li>• 清理浏览器缓存后重新评估</li>
-                  <li>• 如果问题持续，请重新进行评估</li>
+                  <li>• {t('results.solutions.1')}</li>
+                  <li>• {t('results.solutions.2')}</li>
+                  <li>• {t('results.solutions.3')}</li>
+                  <li>• {t('results.solutions.4')}</li>
                 </ul>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Button variant="outline" onClick={() => navigate('/history')}>
                   <Clock className="w-4 h-4 mr-2" />
-                  查看历史记录
+                  {t('results.actions.history')}
                 </Button>
                 <Button variant="outline" onClick={() => navigate('/')}>
                   <Home className="w-4 h-4 mr-2" />
-                  返回首页
+                  {t('results.actions.back')}
                 </Button>
                 <Button onClick={() => navigate('/assessment')}>
                   <Brain className="w-4 h-4 mr-2" />
-                  重新测评
+                  {t('results.retake')}
                 </Button>
               </div>
             </div>
@@ -285,17 +287,20 @@ export default function Results() {
                 className="text-muted-foreground hover:text-foreground"
               >
                 <Home className="w-4 h-4 mr-2" />
-                首页
+                {t('nav.home')}
               </Button>
               <div className="flex items-center gap-2">
                 <Brain className="w-5 h-5 text-psychology-primary" />
                 <span className="font-semibold text-psychology-primary">
-                  SRI 评估结果
+                  {t('results.nav.title')}
                 </span>
               </div>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
+              {/* 语言切换器 */}
+              <LanguageSwitcher variant="dropdown" size="sm" />
+              
               {/* 分享按钮 */}
               {isMobile ? (
                 <ShareButtonMobile session={session} />
@@ -310,7 +315,7 @@ export default function Results() {
                 className="text-muted-foreground hidden sm:flex"
               >
                 <Download className="w-4 h-4 mr-2" />
-                下载报告
+                {t('results.download')}
               </Button>
               <Button
                 variant="outline"
@@ -327,7 +332,7 @@ export default function Results() {
                 className="text-muted-foreground hidden sm:flex"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
-                重新测评
+                {t('results.retake')}
               </Button>
               <Button
                 variant="outline"
@@ -351,7 +356,7 @@ export default function Results() {
               <BarChart3 className="w-10 h-10 text-psychology-primary" />
             </div>
             <CardTitle className="text-2xl sm:text-3xl font-bold text-psychology-primary mb-2">
-              性压抑指数 (SRI)
+              {t('results.sri.title')}
             </CardTitle>
             <div className="text-4xl sm:text-6xl font-bold text-psychology-primary mb-4">
               {Math.round(sri.totalScore)}
@@ -367,15 +372,14 @@ export default function Results() {
             {/* 分数解释 */}
             <div className="text-center">
               <p className="text-muted-foreground mb-4">
-                您的SRI指数为 <span className="font-semibold text-psychology-primary">{Math.round(sri.totalScore)}</span>，
-                处于 <span className="font-semibold">{levelInfo.label}</span> 水平
+                {t('results.sri.description', { score: Math.round(sri.totalScore), level: levelInfo.label })}
               </p>
               <div className="max-w-2xl mx-auto">
                 <Progress value={sri.totalScore} className="h-3 mb-2" />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>0 (较少压抑)</span>
-                  <span>50 (中等)</span>
-                  <span>100 (较多压抑)</span>
+                  <span>{t('results.sri.scale.0')}</span>
+                  <span>{t('results.sri.scale.50')}</span>
+                  <span>{t('results.sri.scale.100')}</span>
                 </div>
               </div>
             </div>
@@ -387,7 +391,7 @@ export default function Results() {
               <div>
                 <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                   <Info className="w-5 h-5 text-psychology-primary" />
-                  结果解释
+                  {t('results.interpretation.title')}
                 </h3>
                 <div className="space-y-2">
                   {session.results.interpretation.map((text, index) => (
@@ -404,7 +408,7 @@ export default function Results() {
               <div>
                 <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-psychology-primary" />
-                  个性化建议
+                  {t('results.recommendations.title')}
                 </h3>
                 <div className="space-y-2">
                   {session.results.recommendations.map((text, index) => (
@@ -424,7 +428,7 @@ export default function Results() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BarChart3 className="w-5 h-5 text-psychology-primary" />
-              四维度分析
+              {t('results.dimensions.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -432,7 +436,7 @@ export default function Results() {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium">性观感反向 (SOS)</span>
+                    <span className='font-medium'>{t('results.dimensions.sos')}</span>
                     <span className="text-sm text-muted-foreground">
                       {sri.dimensionScores.sosReversed.toFixed(2)}
                     </span>
@@ -442,7 +446,7 @@ export default function Results() {
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium">性内疚 (Guilt)</span>
+                    <span className='font-medium'>{t('results.dimensions.guilt')}</span>
                     <span className="text-sm text-muted-foreground">
                       {sri.dimensionScores.sexGuilt.toFixed(2)}
                     </span>
@@ -454,7 +458,7 @@ export default function Results() {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium">性羞耻 (Shame)</span>
+                    <span className='font-medium'>{t('results.dimensions.shame')}</span>
                     <span className="text-sm text-muted-foreground">
                       {sri.dimensionScores.sexualShame.toFixed(2)}
                     </span>
@@ -464,7 +468,7 @@ export default function Results() {
 
                 <div>
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium">抑制优势 (SIS/SES)</span>
+                    <span className='font-medium'>{t('results.dimensions.sis_ses')}</span>
                     <span className="text-sm text-muted-foreground">
                       {sri.dimensionScores.sisOverSes.toFixed(2)}
                     </span>
@@ -481,7 +485,7 @@ export default function Results() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-psychology-primary" />
-              详细分数
+              {t('results.details.title')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -499,7 +503,7 @@ export default function Results() {
                     <div className="text-right">
                       <div className="text-lg font-semibold">{score.rawScore}</div>
                       <div className="text-xs text-muted-foreground">z: {score.zScore.toFixed(2)}</div>
-                      <div className="text-xs text-muted-foreground">第{score.percentile.toFixed(0)}百分位</div>
+                      <div className='text-xs text-muted-foreground'>{t('results.details.percentile', { percentile: score.percentile.toFixed(0) })}</div>
                     </div>
                   </div>
                 );
@@ -511,28 +515,28 @@ export default function Results() {
         {/* 评估信息 */}
         <Card className="sri-card">
           <CardHeader>
-            <CardTitle className="text-lg">评估信息</CardTitle>
+            <CardTitle className='text-lg'>{t('results.info.title')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-muted-foreground">评估类型:</span>
+                <span className="text-muted-foreground">{t('results.info.type')}</span>
                 <span className="ml-2 font-medium">
-                  {session.type === 'quick' ? '快速测评' : '完整测评'}
+                  {session.type === 'quick' ? t('results.info.type.quick') : t('results.info.type.full')}
                 </span>
               </div>
               <div>
-                <span className="text-muted-foreground">完成时间:</span>
+                <span className="text-muted-foreground">{t('results.info.completed')}</span>
                 <span className="ml-2 font-medium">
-                  {session.endTime ? new Date(session.endTime).toLocaleString('zh-CN') : '未知'}
+                  {session.endTime ? new Date(session.endTime).toLocaleString() : t('results.info.unknown')}
                 </span>
               </div>
               <div>
-                <span className="text-muted-foreground">回答题数:</span>
-                <span className="ml-2 font-medium">{session.responses.length} 题</span>
+                <span className="text-muted-foreground">{t('results.info.questions')}</span>
+                <span className="ml-2 font-medium">{t('results.info.questions_count', { count: session.responses.length })}</span>
               </div>
               <div>
-                <span className="text-muted-foreground">会话ID:</span>
+                <span className="text-muted-foreground">{t('results.info.session_id')}</span>
                 <span className="ml-2 font-mono text-xs">{session.id}</span>
               </div>
             </div>
@@ -545,14 +549,12 @@ export default function Results() {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
               <div className="space-y-2 text-sm">
-                <h4 className="font-semibold text-yellow-800">重要声明</h4>
+                <h4 className="font-semibold text-yellow-800">{t('results.disclaimer.title')}</h4>
                 <p className="text-yellow-700 leading-relaxed">
-                  本测评结果仅供参考，不构成医学诊断。SRI指数是基于科学研究的心理测量工具，
-                  旨在帮助您了解自己的性心理特征。如果您对结果有疑问或需要专业帮助，
-                  建议咨询专业的心理健康专家。
+                  {t('results.disclaimer.content1')}
                 </p>
                 <p className="text-yellow-700 leading-relaxed">
-                  您的所有数据都安全地保存在本地设备上，我们不会收集或传输您的个人信息。
+                  {t('results.disclaimer.content2')}
                 </p>
               </div>
             </div>
@@ -569,10 +571,10 @@ export default function Results() {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-psychology-primary mb-2">
-                    欢迎体验SRI性压抑指数评估
+                    {t('results.share.title')}
                   </h3>
                   <p className="text-muted-foreground mb-4">
-                    这是一个由朋友分享的评估结果。想要获得属于自己的专业心理分析吗？
+                    {t('results.share.description')}
                   </p>
                   <div className="flex justify-center gap-3">
                     <Button
@@ -580,11 +582,11 @@ export default function Results() {
                       className="bg-psychology-primary hover:bg-psychology-primary/90"
                     >
                       <Brain className="w-4 h-4 mr-2" />
-                      开始我的评估
+                      {t('results.share.start')}
                     </Button>
                     <Button variant="outline" onClick={() => navigate('/')}>
                       <Home className="w-4 h-4 mr-2" />
-                      了解更多
+                      {t('results.share.learn')}
                     </Button>
                   </div>
                 </div>
@@ -597,12 +599,12 @@ export default function Results() {
         <div className="flex justify-center gap-4 pt-6">
           <Button variant="outline" onClick={() => navigate('/')}>
             <Home className="w-4 h-4 mr-2" />
-            返回首页
+            {t('results.actions.back')}
           </Button>
           {!isShared && (
             <Button onClick={handleRetake} className="bg-psychology-primary hover:bg-psychology-primary/90">
               <RefreshCw className="w-4 h-4 mr-2" />
-              重新测评
+              {t('results.retake')}
             </Button>
           )}
 

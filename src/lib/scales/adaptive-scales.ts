@@ -4,16 +4,17 @@
  */
 
 import { Demographics, LIKERT_OPTIONS, Scale } from '@/types';
+import i18n from '@/locales/i18n';
 
 // 青少年性态度量表（适用于14-17岁）
 export const TEEN_SEXUAL_ATTITUDES: Scale = {
   id: 'teen_sexual_attitudes',
-  name: '青少年性态度量表',
-  description: '适用于青少年的性态度和性认知评估',
+  name: i18n.t('scales.teen.name'),
+  description: i18n.t('scales.teen.description'),
   questions: [
     {
       id: 'tsa_1',
-      text: '我对性教育内容感到困惑',
+      text: i18n.t('scales.teen.question.1'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -21,7 +22,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_2',
-      text: '我觉得谈论性话题是尴尬的',
+      text: i18n.t('scales.teen.question.2'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -29,7 +30,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_3',
-      text: '我认为了解性知识是重要的',
+      text: i18n.t('scales.teen.question.3'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -38,7 +39,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_4',
-      text: '我对自己的身体变化感到不安',
+      text: i18n.t('scales.teen.question.4'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -46,7 +47,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_5',
-      text: '我担心别人会评判我的性想法',
+      text: i18n.t('scales.teen.question.5'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -54,7 +55,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_6',
-      text: '我觉得性冲动是不好的',
+      text: i18n.t('scales.teen.question.6'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -62,7 +63,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_7',
-      text: '我认为青少年不应该有性想法',
+      text: i18n.t('scales.teen.question.7'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -70,7 +71,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_8',
-      text: '我对媒体中的性内容感到不适',
+      text: i18n.t('scales.teen.question.8'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -78,7 +79,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_9',
-      text: '我觉得性教育应该在家庭中进行',
+      text: i18n.t('scales.teen.question.9'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -86,7 +87,7 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
     },
     {
       id: 'tsa_10',
-      text: '我为自己的性好奇心感到羞耻',
+      text: i18n.t('scales.teen.question.10'),
       scale: 'teen_sexual_attitudes',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -102,12 +103,12 @@ export const TEEN_SEXUAL_ATTITUDES: Scale = {
 // 性认知量表（适用于无性经验用户）
 export const SEXUAL_COGNITION: Scale = {
   id: 'sexual_cognition',
-  name: '性认知量表',
-  description: '测量对性的认知态度和心理准备度',
+  name: i18n.t('scales.cognition.name'),
+  description: i18n.t('scales.cognition.description'),
   questions: [
     {
       id: 'sc_1',
-      text: '我对性这个话题感到紧张',
+      text: i18n.t('scales.cognition.question.1'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -115,7 +116,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_2',
-      text: '我觉得性是自然而美好的',
+      text: i18n.t('scales.cognition.question.2'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -124,7 +125,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_3',
-      text: '我担心未来的性经历',
+      text: i18n.t('scales.cognition.question.3'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -132,7 +133,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_4',
-      text: '我认为性只有在特定条件下才合适',
+      text: i18n.t('scales.cognition.question.4'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -140,7 +141,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_5',
-      text: '我对性知识的了解感到不够',
+      text: i18n.t('scales.cognition.question.5'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -148,7 +149,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_6',
-      text: '我觉得性幻想是不道德的',
+      text: i18n.t('scales.cognition.question.6'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -156,7 +157,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_7',
-      text: '我认为性应该是爱情的表达',
+      text: i18n.t('scales.cognition.question.7'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -164,7 +165,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_8',
-      text: '我对自己的性身体感到羞耻',
+      text: i18n.t('scales.cognition.question.8'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -172,7 +173,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_9',
-      text: '我认为讨论性话题是重要的',
+      text: i18n.t('scales.cognition.question.9'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -181,7 +182,7 @@ export const SEXUAL_COGNITION: Scale = {
     },
     {
       id: 'sc_10',
-      text: '我担心别人知道我的性想法',
+      text: i18n.t('scales.cognition.question.10'),
       scale: 'sexual_cognition',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -197,12 +198,12 @@ export const SEXUAL_COGNITION: Scale = {
 // 修改过的SIS/SES量表（移除具体性行为相关题目）
 export const SIS_SES_ADAPTED: Scale = {
   id: 'sis_ses_adapted',
-  name: 'SIS/SES适应版量表',
-  description: '适用于无性经验用户的性抑制/兴奋倾向量表',
+  name: i18n.t('scales.adapted.name'),
+  description: i18n.t('scales.adapted.description'),
   questions: [
     {
       id: 'sisa_1',
-      text: '当我看到有吸引力的人时，我很容易产生浪漫想法',
+      text: i18n.t('scales.adapted.question.1'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -210,7 +211,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_2',
-      text: '浪漫的画面或故事很容易让我产生情感反应',
+      text: i18n.t('scales.adapted.question.2'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -218,7 +219,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_3',
-      text: '我很容易被浪漫情境所打动',
+      text: i18n.t('scales.adapted.question.3'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -226,7 +227,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_4',
-      text: '亲密接触的想法会让我紧张',
+      text: i18n.t('scales.adapted.question.4'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -234,7 +235,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_5',
-      text: '我担心在亲密关系中让对方失望',
+      text: i18n.t('scales.adapted.question.5'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -242,7 +243,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_6',
-      text: '我觉得在亲密关系中需要很多条件才能放松',
+      text: i18n.t('scales.adapted.question.6'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -250,7 +251,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_7',
-      text: '如果感到有风险，我会避免亲密接触',
+      text: i18n.t('scales.adapted.question.7'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -258,7 +259,7 @@ export const SIS_SES_ADAPTED: Scale = {
     },
     {
       id: 'sisa_8',
-      text: '陌生或不熟悉的环境会让我难以表达亲密情感',
+      text: i18n.t('scales.adapted.question.8'),
       scale: 'sis_ses_adapted',
       type: 'likert',
       options: Object.values(LIKERT_OPTIONS),
@@ -387,17 +388,17 @@ export function isInexperienced(demographics: Demographics): boolean {
  */
 export function getUserGroupDescription(demographics: Demographics): string {
   if (isMinor(demographics)) {
-    return '青少年适应版';
+    return i18n.t('scales.group.teen');
   }
 
   if (isInexperienced(demographics)) {
-    return '无性经验适应版';
+    return i18n.t('scales.group.inexperienced');
   }
 
   const sexualActivity = parseInt(demographics.sexualActivity);
   if (sexualActivity === 1) {
-    return '低活跃度适应版';
+    return i18n.t('scales.group.low');
   }
 
-  return '标准版';
+  return i18n.t('scales.group.standard');
 }

@@ -8,6 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Heart, Share2, Sparkles, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export interface ShareSuccessProps {
   show: boolean;
@@ -16,6 +17,7 @@ export interface ShareSuccessProps {
 }
 
 export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
@@ -36,15 +38,15 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
   const getPlatformInfo = (platform?: string) => {
     switch (platform) {
       case 'weibo':
-        return { name: '微博', color: 'bg-orange-500', icon: '微' };
+        return { name: t('component.shareSuccess.platforms.weibo'), color: 'bg-orange-500', icon: '微' };
       case 'wechat':
-        return { name: '微信', color: 'bg-green-500', icon: '💬' };
+        return { name: t('component.shareSuccess.platforms.wechat'), color: 'bg-green-500', icon: '💬' };
       case 'qzone':
-        return { name: 'QQ空间', color: 'bg-yellow-500', icon: 'Q' };
+        return { name: t('component.shareSuccess.platforms.qzone'), color: 'bg-yellow-500', icon: 'Q' };
       case 'douban':
-        return { name: '豆瓣', color: 'bg-purple-500', icon: '豆' };
+        return { name: t('component.shareSuccess.platforms.douban'), color: 'bg-purple-500', icon: '豆' };
       default:
-        return { name: '社交媒体', color: 'bg-blue-500', icon: '📱' };
+        return { name: t('component.shareSuccess.platforms.social'), color: 'bg-blue-500', icon: '📱' };
     }
   };
 
@@ -78,10 +80,10 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
           {/* 成功消息 */}
           <div>
             <h3 className="text-xl font-bold text-green-600 mb-2">
-              分享成功！
+              {t('component.shareSuccess.title')}
             </h3>
             <p className="text-muted-foreground">
-              已成功分享到{platformInfo.name}，感谢您推荐SRI评估工具！
+              {t('component.shareSuccess.message', { platform: platformInfo.name })}
             </p>
           </div>
 
@@ -89,10 +91,10 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
           <div className="bg-green-50 rounded-lg p-4">
             <div className="flex items-center justify-center gap-2 text-green-700">
               <Users className="w-5 h-5" />
-              <span className="font-medium">帮助更多人了解心理健康</span>
+              <span className="font-medium">{t('component.shareSuccess.helpTitle')}</span>
             </div>
             <p className="text-sm text-green-600 mt-1">
-              您的分享可能会帮助朋友更好地认识自己
+              {t('component.shareSuccess.helpDesc')}
             </p>
           </div>
 
@@ -103,7 +105,7 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
               className="w-full bg-psychology-primary hover:bg-psychology-primary/90"
             >
               <Heart className="w-4 h-4 mr-2" />
-              邀请朋友来测评
+              {t('component.shareSuccess.inviteFriends')}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
 
@@ -115,7 +117,7 @@ export function ShareSuccess({ show, onClose, platform }: ShareSuccessProps) {
               }}
               className="w-full"
             >
-              继续浏览结果
+              {t('component.shareSuccess.continueBrowsing')}
             </Button>
           </div>
         </CardContent>

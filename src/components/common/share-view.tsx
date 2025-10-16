@@ -12,12 +12,14 @@ import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { ArrowRight, BarChart3, Brain, CheckCircle, Heart, Home, Sparkles, Target, Users } from 'lucide-react';
 import { AssessmentSession, SRI_LEVELS } from '@/types';
+import { useTranslation } from 'react-i18next';
 
 interface ShareViewProps {
   session: AssessmentSession;
 }
 
 export function ShareView({ session }: ShareViewProps) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   if (!session.results) {
@@ -55,10 +57,10 @@ export function ShareView({ session }: ShareViewProps) {
               <Brain className="w-6 h-6 text-psychology-primary" />
               <div>
                 <h1 className="font-bold text-psychology-primary text-lg">
-                  SRI性压抑指数计算器
+                  {t('component.shareView.title')}
                 </h1>
                 <p className="text-xs text-muted-foreground">
-                  基于科学心理测量学的专业评估工具
+                  {t('component.shareView.subtitle')}
                 </p>
               </div>
             </div>
@@ -68,7 +70,7 @@ export function ShareView({ session }: ShareViewProps) {
               onClick={() => navigate('/')}
             >
               <Home className="w-4 h-4 mr-2" />
-              主页
+              {t('component.shareView.home')}
             </Button>
           </div>
         </div>
@@ -85,10 +87,10 @@ export function ShareView({ session }: ShareViewProps) {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-psychology-primary mb-2">
-                  朋友分享了一个有趣的心理评估结果
+                  {t('component.shareView.welcomeTitle')}
                 </h2>
                 <p className="text-muted-foreground text-lg">
-                  SRI性压抑指数是基于多个科学量表的专业心理评估工具
+                  {t('component.shareView.welcomeDesc')}
                 </p>
               </div>
             </div>
@@ -102,7 +104,7 @@ export function ShareView({ session }: ShareViewProps) {
               <BarChart3 className="w-8 h-8 text-psychology-primary" />
             </div>
             <CardTitle className="text-xl sm:text-2xl font-bold text-psychology-primary mb-2">
-              评估结果
+              {t('component.shareView.resultsTitle')}
             </CardTitle>
             <div className="text-3xl sm:text-5xl font-bold text-psychology-primary mb-4">
               {Math.round(sri.totalScore)}
@@ -118,15 +120,14 @@ export function ShareView({ session }: ShareViewProps) {
             {/* 分数解释 */}
             <div className="text-center">
               <p className="text-muted-foreground mb-4">
-                SRI指数: <span className="font-semibold text-psychology-primary">{Math.round(sri.totalScore)}</span>/100，
-                处于 <span className="font-semibold">{levelInfo.label}</span> 水平
+                {t('component.shareView.scoreDesc', { score: Math.round(sri.totalScore), level: levelInfo.label })}
               </p>
               <div className="max-w-md mx-auto">
                 <Progress value={sri.totalScore} className="h-3 mb-2" />
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <span>0 (较少压抑)</span>
-                  <span>50 (中等)</span>
-                  <span>100 (较多压抑)</span>
+                  <span>{t('component.shareView.scoreLow')}</span>
+                  <span>{t('component.shareView.scoreMiddle')}</span>
+                  <span>{t('component.shareView.scoreHigh')}</span>
                 </div>
               </div>
             </div>
@@ -137,28 +138,27 @@ export function ShareView({ session }: ShareViewProps) {
             <div className="bg-muted/30 rounded-lg p-6">
               <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
                 <Target className="w-5 h-5 text-psychology-primary" />
-                关于SRI指数
+                {t('component.shareView.aboutTitle')}
               </h3>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                性压抑指数(SRI)是一个综合性的心理健康指标，基于国际认可的心理测量量表开发。
-                它能够帮助人们更好地了解自己的性心理特征，促进心理健康和亲密关系的发展。
+                {t('component.shareView.aboutDesc')}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>科学可靠的测量方法</span>
+                  <span>{t('component.shareView.aboutScientific')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>四维度综合分析</span>
+                  <span>{t('component.shareView.aboutAnalysis')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>个性化专业建议</span>
+                  <span>{t('component.shareView.aboutSuggestion')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  <span>完全隐私保护</span>
+                  <span>{t('component.shareView.aboutPrivacy')}</span>
                 </div>
               </div>
             </div>
@@ -174,10 +174,10 @@ export function ShareView({ session }: ShareViewProps) {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-psychology-primary mb-2">
-                  想要获得属于自己的心理分析吗？
+                  {t('component.shareView.inviteTitle')}
                 </h3>
                 <p className="text-muted-foreground mb-6">
-                  免费完成专业的性心理健康评估，获得个性化的分析报告和改善建议
+                  {t('component.shareView.inviteDesc')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
@@ -186,7 +186,7 @@ export function ShareView({ session }: ShareViewProps) {
                     className="bg-psychology-primary hover:bg-psychology-primary/90 text-white px-8"
                   >
                     <Brain className="w-5 h-5 mr-2" />
-                    开始我的评估
+                    {t('component.shareView.inviteButton')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                   <Button
@@ -196,7 +196,7 @@ export function ShareView({ session }: ShareViewProps) {
                     className="px-8"
                   >
                     <Users className="w-5 h-5 mr-2" />
-                    了解更多
+                    {t('component.shareView.inviteLearn')}
                   </Button>
                 </div>
               </div>
@@ -211,9 +211,9 @@ export function ShareView({ session }: ShareViewProps) {
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Brain className="w-6 h-6 text-blue-600" />
               </div>
-              <h4 className="font-semibold mb-2">科学专业</h4>
+              <h4 className="font-semibold mb-2">{t('component.shareView.featureScientific')}</h4>
               <p className="text-sm text-muted-foreground">
-                基于SIS/SES、Mosher等国际认可量表
+                {t('component.shareView.featureScientificDesc')}
               </p>
             </CardContent>
           </Card>
@@ -223,9 +223,9 @@ export function ShareView({ session }: ShareViewProps) {
               <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BarChart3 className="w-6 h-6 text-green-600" />
               </div>
-              <h4 className="font-semibold mb-2">深度分析</h4>
+              <h4 className="font-semibold mb-2">{t('component.shareView.featureAnalysis')}</h4>
               <p className="text-sm text-muted-foreground">
-                四维度分析和个性化建议
+                {t('component.shareView.featureAnalysisDesc')}
               </p>
             </CardContent>
           </Card>
@@ -235,9 +235,9 @@ export function ShareView({ session }: ShareViewProps) {
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-6 h-6 text-purple-600" />
               </div>
-              <h4 className="font-semibold mb-2">隐私安全</h4>
+              <h4 className="font-semibold mb-2">{t('component.shareView.featurePrivacy')}</h4>
               <p className="text-sm text-muted-foreground">
-                100%本地数据处理，保护隐私
+                {t('component.shareView.featurePrivacyDesc')}
               </p>
             </CardContent>
           </Card>

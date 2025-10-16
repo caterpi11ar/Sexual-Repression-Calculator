@@ -21,6 +21,7 @@ import {
 import { Brain, CheckCircle2, Copy, Heart, Link, MessageCircle, QrCode, Share2, Smartphone } from 'lucide-react';
 import { AssessmentSession, SRI_LEVELS } from '@/types';
 import { copyToClipboard, generateQRCode, generateShareText, generateShareUrl, socialShareUrls } from '@/lib/share-utils';
+import { useTranslation } from 'react-i18next';
 
 export interface ShareResultProps {
   session: AssessmentSession;
@@ -28,6 +29,7 @@ export interface ShareResultProps {
 }
 
 export function ShareResult({ session, className }: ShareResultProps) {
+  const { t } = useTranslation();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
@@ -66,7 +68,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
     } catch (error) {
       console.error('Failed to generate QR code:', error);
       // 显示错误提示或使用备用方案
-      alert('二维码生成失败，请尝试复制链接分享');
+      alert(t('component.shareResult.qrFailed'));
     }
   };
 
@@ -89,7 +91,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
             className={`flex items-center gap-2 ${className}`}
           >
             <Share2 className="w-4 h-4" />
-            <span className="hidden sm:inline">分享结果</span>
+            <span className="hidden sm:inline">{t('component.shareResult.shareButton')}</span>
           </Button>
         </DialogTrigger>
 
@@ -97,10 +99,10 @@ export function ShareResult({ session, className }: ShareResultProps) {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Share2 className="w-5 h-5 text-psychology-primary" />
-              分享我的SRI评估结果
+              {t('component.shareResult.title')}
             </DialogTitle>
             <DialogDescription>
-              选择您喜欢的方式分享评估结果，所有数据都经过匿名化处理
+              {t('component.shareResult.description')}
             </DialogDescription>
           </DialogHeader>
 
@@ -113,10 +115,10 @@ export function ShareResult({ session, className }: ShareResultProps) {
                     <Brain className="w-8 h-8 text-psychology-primary" />
                     <div>
                       <h3 className="text-xl font-bold text-psychology-primary">
-                        性压抑指数 (SRI)
+                        {t('component.shareResult.sriTitle')}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        Sexual Repression Index
+                        {t('component.shareResult.sriSubtitle')}
                       </p>
                     </div>
                   </div>
@@ -148,7 +150,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   </div>
 
                   <p className="text-sm text-muted-foreground">
-                    基于科学心理测量学的专业评估工具
+                    {t('component.shareResult.scientificBasis')}
                   </p>
                 </div>
               </CardContent>
@@ -158,7 +160,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
             <div className="space-y-4">
               <h4 className="font-semibold flex items-center gap-2">
                 <Smartphone className="w-4 h-4" />
-                社交媒体分享
+                {t('component.shareResult.socialMediaTitle')}
               </h4>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -170,7 +172,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   <div className="w-6 h-6 bg-orange-500 rounded flex items-center justify-center">
                     <span className="text-white text-xs font-bold">微</span>
                   </div>
-                  <span className="text-xs">微博</span>
+                  <span className="text-xs">{t('component.shareResult.weibo')}</span>
                 </Button>
 
                 <Button
@@ -179,7 +181,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   onClick={() => handleSocialShare('wechat')}
                 >
                   <MessageCircle className="w-6 h-6 text-green-600" />
-                  <span className="text-xs">微信</span>
+                  <span className="text-xs">{t('component.shareResult.wechat')}</span>
                 </Button>
 
                 <Button
@@ -190,7 +192,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   <div className="w-6 h-6 bg-yellow-500 rounded flex items-center justify-center">
                     <span className="text-white text-xs font-bold">Q</span>
                   </div>
-                  <span className="text-xs">QQ空间</span>
+                  <span className="text-xs">{t('component.shareResult.qzone')}</span>
                 </Button>
 
                 <Button
@@ -199,7 +201,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   onClick={() => handleSocialShare('douban')}
                 >
                   <Heart className="w-6 h-6 text-purple-600" />
-                  <span className="text-xs">豆瓣</span>
+                  <span className="text-xs">{t('component.shareResult.douban')}</span>
                 </Button>
               </div>
             </div>
@@ -210,7 +212,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
             <div className="space-y-4">
               <h4 className="font-semibold flex items-center gap-2">
                 <Link className="w-4 h-4" />
-                直接分享
+                {t('component.shareResult.directShareTitle')}
               </h4>
 
               <div className="space-y-3">
@@ -239,12 +241,12 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   className="w-full"
                 >
                   <QrCode className="w-4 h-4 mr-2" />
-                  生成二维码
+                  {t('component.shareResult.generateQR')}
                 </Button>
 
                 {qrCodeUrl && (
                   <div className="flex justify-center p-4 bg-white rounded-lg border">
-                    <img src={qrCodeUrl} alt="分享二维码" className="w-32 h-32" />
+                    <img src={qrCodeUrl} alt={t('component.shareResult.qrAlt')} className="w-32 h-32" />
                   </div>
                 )}
               </div>
@@ -252,7 +254,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
 
             {/* 预设文案 */}
             <div className="space-y-3">
-              <h4 className="font-semibold">预设分享文案</h4>
+              <h4 className="font-semibold">{t('component.shareResult.presetTextTitle')}</h4>
               <div className="p-4 bg-muted/50 rounded-lg">
                 <p className="text-sm leading-relaxed text-muted-foreground">
                   {shareText}
@@ -264,7 +266,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
                   className="mt-2 text-xs"
                 >
                   <Copy className="w-3 h-3 mr-1" />
-                  复制文案
+                  {t('component.shareResult.copyText')}
                 </Button>
               </div>
             </div>
@@ -273,9 +275,8 @@ export function ShareResult({ session, className }: ShareResultProps) {
             <Alert>
               <Brain className="h-4 w-4" />
               <AlertDescription className="text-sm">
-                <strong>隐私保护：</strong>
-                分享的结果经过匿名化处理，不包含个人身份信息。
-                分享链接仅包含结果摘要，他人无法访问您的详细答题记录。
+                <strong>{t('component.shareResult.privacyTitle')}</strong>
+                {t('component.shareResult.privacyDescription')}
               </AlertDescription>
             </Alert>
           </div>
@@ -289,6 +290,7 @@ export function ShareResult({ session, className }: ShareResultProps) {
  * 简化的分享按钮（用于移动端）
  */
 export function ShareButtonMobile({ session, className }: ShareResultProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   if (!session.results) {
@@ -309,7 +311,7 @@ export function ShareButtonMobile({ session, className }: ShareResultProps) {
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'SRI性压抑指数评估结果',
+          title: t('component.socialShareFloating.shareTitle'),
           text: shareText,
           url: shareUrl,
         });
@@ -342,7 +344,7 @@ export function ShareButtonMobile({ session, className }: ShareResultProps) {
         <Share2 className="w-4 h-4" />
       )}
       <span className="hidden sm:inline">
-        {copied ? '已复制' : '分享'}
+        {copied ? t('component.shareResult.mobileCopied') : t('component.shareResult.mobileShare')}
       </span>
     </Button>
   );

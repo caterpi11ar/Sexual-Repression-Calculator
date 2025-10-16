@@ -7,6 +7,7 @@ import React from 'react';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BarChart3, Brain, Loader2, Shield } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface LoadingScreenProps {
   title?: string;
@@ -17,12 +18,16 @@ interface LoadingScreenProps {
 }
 
 export function LoadingScreen({
-  title = "处理中",
-  description = "请稍候...",
+  title,
+  description,
   progress,
   steps = [],
   currentStep = 0
 }: LoadingScreenProps) {
+  const { t } = useTranslation();
+  
+  const defaultTitle = title || t('component.loadingScreen.defaultTitle');
+  const defaultDescription = description || t('component.loadingScreen.defaultDescription');
   return (
     <div className="min-h-screen bg-gradient-to-br from-psychology-calm via-white to-psychology-warm flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-8 text-center space-y-6">
@@ -32,10 +37,10 @@ export function LoadingScreen({
 
         <div>
           <h2 className="text-2xl font-bold text-psychology-primary mb-2">
-            {title}
+            {defaultTitle}
           </h2>
           <p className="text-muted-foreground">
-            {description}
+            {defaultDescription}
           </p>
         </div>
 
@@ -43,7 +48,7 @@ export function LoadingScreen({
           <div className="space-y-3">
             <Progress value={progress} className="h-2" />
             <p className="text-sm text-muted-foreground">
-              {Math.round(progress)}% 完成
+              {t('component.loadingScreen.progressComplete', { progress: Math.round(progress) })}
             </p>
           </div>
         )}
@@ -88,11 +93,13 @@ export function LoadingScreen({
 /**
  * 简化的加载指示器
  */
-export function SimpleLoader({ message = "加载中..." }: { message?: string }) {
+export function SimpleLoader({ message }: { message?: string }) {
+  const { t } = useTranslation();
+  const defaultMessage = message || t('component.loadingScreen.simpleLoading');
   return (
     <div className="flex items-center justify-center gap-3 p-4">
       <Loader2 className="w-5 h-5 animate-spin text-psychology-primary" />
-      <span className="text-muted-foreground">{message}</span>
+      <span className="text-muted-foreground">{defaultMessage}</span>
     </div>
   );
 }

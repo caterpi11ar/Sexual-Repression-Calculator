@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTr
 import { CheckCircle2, Copy, MessageCircle, Share2, Smartphone } from 'lucide-react';
 import { AssessmentSession } from '@/types';
 import { copyToClipboard, generateShareText, generateShareUrl, getDeviceInfo, socialShareUrls } from '@/lib/share-utils';
+import { useTranslation } from 'react-i18next';
 
 export interface SocialShareFloatingProps {
   session: AssessmentSession;
@@ -17,6 +18,7 @@ export interface SocialShareFloatingProps {
 }
 
 export function SocialShareFloating({ session, className }: SocialShareFloatingProps) {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -39,7 +41,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'SRI性压抑指数评估结果',
+          title: t('component.socialShareFloating.shareTitle'),
           text: shareText,
           url: shareUrl,
         });
@@ -90,10 +92,10 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <Share2 className="w-5 h-5 text-psychology-primary" />
-            分享我的评估结果
+            {t('component.socialShareFloating.title')}
           </SheetTitle>
           <SheetDescription>
-            选择您喜欢的方式分享SRI评估结果
+            {t('component.socialShareFloating.description')}
           </SheetDescription>
         </SheetHeader>
 
@@ -105,7 +107,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
               className="w-full h-14 text-lg bg-psychology-primary hover:bg-psychology-primary/90"
             >
               <Smartphone className="w-6 h-6 mr-3" />
-              系统分享
+              {t('component.socialShareFloating.nativeShare')}
             </Button>
           )}
 
@@ -119,7 +121,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
               <div className="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
                 <span className="text-white text-sm font-bold">微</span>
               </div>
-              <span className="text-sm">微博</span>
+              <span className="text-sm">{t('component.shareResult.weibo')}</span>
             </Button>
 
             <Button
@@ -128,7 +130,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
               onClick={() => handleSocialShare('wechat')}
             >
               <MessageCircle className="w-8 h-8 text-green-600" />
-              <span className="text-sm">微信</span>
+              <span className="text-sm">{t('component.shareResult.wechat')}</span>
             </Button>
 
             <Button
@@ -139,7 +141,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
               <div className="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center">
                 <span className="text-white text-sm font-bold">Q</span>
               </div>
-              <span className="text-sm">QQ空间</span>
+              <span className="text-sm">{t('component.shareResult.qzone')}</span>
             </Button>
 
             <Button
@@ -150,7 +152,7 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
               <div className="w-8 h-8 bg-purple-500 rounded flex items-center justify-center">
                 <span className="text-white text-sm font-bold">豆</span>
               </div>
-              <span className="text-sm">豆瓣</span>
+              <span className="text-sm">{t('component.shareResult.douban')}</span>
             </Button>
           </div>
 
@@ -163,24 +165,24 @@ export function SocialShareFloating({ session, className }: SocialShareFloatingP
             {copied ? (
               <>
                 <CheckCircle2 className="w-5 h-5 mr-2" />
-                已复制到剪贴板！
+                {t('component.socialShareFloating.copySuccess')}
               </>
             ) : (
               <>
                 <Copy className="w-5 h-5 mr-2" />
-                复制分享链接
+                {t('component.socialShareFloating.copyButton')}
               </>
             )}
           </Button>
 
           {/* 分享预览 */}
           <div className="bg-muted/50 rounded-lg p-4">
-            <h4 className="font-medium text-sm mb-2">分享预览</h4>
+            <h4 className="font-medium text-sm mb-2">{t('component.socialShareFloating.previewTitle')}</h4>
             <p className="text-xs text-muted-foreground leading-relaxed">
               {shareText.split('\n')[0]}...
             </p>
             <Badge variant="outline" className="mt-2 text-xs">
-              匿名分享 · 隐私保护
+              {t('component.socialShareFloating.previewBadge')}
             </Badge>
           </div>
         </div>

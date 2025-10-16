@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { AlertCircle, SkipForward } from 'lucide-react';
 import { Question, QuestionOption, Response } from '@/types';
 import { ALL_SCALES } from '@/lib/scales';
+import { useTranslation } from 'react-i18next';
 
 interface QuestionCardProps {
   question: Question;
@@ -32,6 +33,7 @@ export function QuestionCard({
   onSkip,
   allowSkip = false
 }: QuestionCardProps) {
+  const { t } = useTranslation();
   const [selectedValue, setSelectedValue] = useState<string>(
     currentResponse?.value.toString() || ''
   );
@@ -88,7 +90,7 @@ export function QuestionCard({
             </div>
             {question.required && (
               <Badge variant="destructive" className="text-xs">
-                必答
+                {t('component.questionCard.required')}
               </Badge>
             )}
           </div>
@@ -151,7 +153,7 @@ export function QuestionCard({
           {showValidation && question.required && !selectedValue && (
             <div className="flex items-center gap-2 mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <AlertCircle className="w-4 h-4 text-red-500" />
-              <span className="text-sm text-red-600">请选择一个选项后继续</span>
+              <span className="text-sm text-red-600">{t('component.questionCard.validationMessage')}</span>
             </div>
           )}
 
@@ -165,7 +167,7 @@ export function QuestionCard({
                 className="text-muted-foreground hover:text-foreground"
               >
                 <SkipForward className="w-4 h-4 mr-2" />
-                跳过此题
+                {t('component.questionCard.skipQuestion')}
               </Button>
             </div>
           )}
@@ -174,7 +176,7 @@ export function QuestionCard({
           {selectedValue && (
             <div className="mt-6 p-3 bg-green-50 border border-green-200 rounded-lg text-center">
               <p className="text-sm text-green-600 font-medium">
-                ✓ 已选择答案，请点击"下一题"继续
+                {t('component.questionCard.answerSelected')}
               </p>
             </div>
           )}
@@ -182,7 +184,7 @@ export function QuestionCard({
           {/* 底部说明 */}
           <div className="mt-6 pt-4 border-t border-muted text-center">
             <p className="text-xs text-muted-foreground">
-              请根据您的真实感受选择最符合的选项。您的回答将被严格保密。
+              {t('component.questionCard.privacyNote')}
             </p>
           </div>
         </CardContent>

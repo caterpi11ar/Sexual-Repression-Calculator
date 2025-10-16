@@ -5,12 +5,13 @@
 
 import { FREQUENCY_OPTIONS, LIKERT_OPTIONS, Scale } from '@/types';
 import { SEXUAL_COGNITION, SIS_SES_ADAPTED, TEEN_SEXUAL_ATTITUDES } from './adaptive-scales';
+import i18n from '@/locales/i18n';
 
 // SIS/SES-SF 14项量表 (Sexual Inhibition/Sexual Excitation Scale - Short Form)
 export const SIS_SES_SF: Scale = {
   id: 'sis_ses_sf',
-  name: 'SIS/SES-SF 性抑制/性兴奋量表简版',
-  description: 'Janssen等人开发的双控制模型量表，测量性抑制和性兴奋系统',
+  name: i18n.t('scales.sis_ses_sf.name'),
+  description: i18n.t('scales.sis_ses_sf.description'),
   questions: [
     // SES items (Sexual Excitation System)
     {
@@ -137,8 +138,8 @@ export const SIS_SES_SF: Scale = {
 // Mosher性内疚量表10项简版
 export const MOSHER_GUILT: Scale = {
   id: 'mosher_guilt',
-  name: 'Mosher性内疚量表',
-  description: 'Mosher开发的性内疚量表，测量性相关的内疚感和道德负担',
+  name: i18n.t('scales.mosher.name'),
+  description: i18n.t('scales.mosher.description'),
   questions: [
     {
       id: 'mg_1',
@@ -230,8 +231,8 @@ export const MOSHER_GUILT: Scale = {
 // KISS-9性羞耻量表
 export const KISS9_SHAME: Scale = {
   id: 'kiss9_shame',
-  name: 'KISS-9性羞耻量表',
-  description: 'Kyle等人开发的性羞耻简版量表，测量性相关的羞耻体验',
+  name: i18n.t('scales.kiss9.name'),
+  description: i18n.t('scales.kiss9.description'),
   questions: [
     {
       id: 'ks_1',
@@ -315,8 +316,8 @@ export const KISS9_SHAME: Scale = {
 // SOS筛查版（简化版本）
 export const SOS_SCREENING: Scale = {
   id: 'sos_screening',
-  name: 'SOS性观感筛查',
-  description: '性观感调查的简化筛查版本，测量对性刺激的情绪取向',
+  name: i18n.t('scales.sos_screening.name'),
+  description: i18n.t('scales.sos_screening.description'),
   questions: [
     {
       id: 'sos_1',
@@ -368,8 +369,8 @@ export const SOS_SCREENING: Scale = {
 // SIS/SES完整版量表 (45项)
 export const SIS_SES_FULL: Scale = {
   id: 'sis_ses_full',
-  name: 'SIS/SES 性抑制/性兴奋量表完整版',
-  description: 'Janssen等人开发的完整版双控制模型量表，全面测量性抑制和性兴奋系统',
+  name: i18n.t('scales.sis_ses_full.name'),
+  description: i18n.t('scales.sis_ses_full.description'),
   questions: [
     // SES items (Sexual Excitation System) - 16项
     ...SIS_SES_SF.questions.filter(q => q.id.startsWith('ses_')),
@@ -635,8 +636,8 @@ export const SIS_SES_FULL: Scale = {
 // Mosher性内疚量表完整版 (28项)
 export const MOSHER_GUILT_FULL: Scale = {
   id: 'mosher_guilt_full',
-  name: 'Mosher性内疚量表完整版',
-  description: 'Mosher开发的完整版性内疚量表，全面测量性相关的内疚感和道德负担',
+  name: i18n.t('scales.mosher_full.name'),
+  description: i18n.t('scales.mosher_full.description'),
   questions: [
     // 已有的10项
     ...MOSHER_GUILT.questions,
@@ -795,8 +796,8 @@ export const MOSHER_GUILT_FULL: Scale = {
 // SOS性观感完整版量表 (21项)
 export const SOS_FULL: Scale = {
   id: 'sos_full',
-  name: 'SOS性观感量表完整版',
-  description: 'Fisher等人开发的完整版性观感调查，全面测量对性刺激的情绪取向',
+  name: i18n.t('scales.sos_full.name'),
+  description: i18n.t('scales.sos_full.description'),
   questions: [
     // 已有的5项筛查版题目
     ...SOS_SCREENING.questions,
@@ -939,8 +940,8 @@ export const SOS_FULL: Scale = {
 // BSAS简版性态度量表 (23项)
 export const BSAS_BRIEF: Scale = {
   id: 'bsas_brief',
-  name: 'BSAS简版性态度量表',
-  description: 'Hendrick等人开发的性态度量表简版，测量性态度的四个维度',
+  name: i18n.t('scales.bsas.name'),
+  description: i18n.t('scales.bsas.description'),
   questions: [
     // 性许可性维度 (6项)
     {
