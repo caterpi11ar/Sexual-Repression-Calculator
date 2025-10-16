@@ -3,19 +3,17 @@
  * 提供评估介绍、快速开始入口和功能说明
  */
 
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Github } from "lucide-react";
-import { 
-  Brain, 
-  Clock, 
-  Shield, 
-  Users, 
-  BarChart3, 
-  FileText, 
+import {
+  Brain,
+  Clock,
+  Shield,
+  Users,
+  BarChart3,
+  FileText,
   Heart,
   Zap,
   CheckCircle,
@@ -52,50 +50,39 @@ export default function Home() {
                 <p className="text-xs text-muted-foreground">性压抑指数计算器</p>
               </div>
             </div>
-            
-          {/* 移动端菜单 - 只在小屏幕上显示 */}
-<div className="md:hidden">
-  <Sheet>
-    <SheetTrigger asChild>
-      <Button variant="ghost" size="sm">
-        <Menu className="w-5 h-5" />
-      </Button>
-    </SheetTrigger>
-    <SheetContent side="right">
-      <div className="flex flex-col gap-4 mt-4">
-        <Button variant="ghost" size="sm" asChild className="justify-start">
-          <Link to="/guide" className="flex items-center gap-2">
-            <BookOpen className="w-4 h-4" />
-            使用指南
-          </Link>
-        </Button>
-        <Button variant="ghost" size="sm" asChild className="justify-start">
-          <Link to="/science" className="flex items-center gap-2">
-            <FileText className="w-4 h-4" />
-            科学依据
-          </Link>
-        </Button>
-        <Button variant="ghost" size="sm" asChild className="justify-start">
-          <Link to="/history" className="flex items-center gap-2">
-            <History className="w-4 h-4" />
-            历史记录
-          </Link>
-        </Button>
-        <Button variant="ghost" size="sm" asChild className="justify-start">
-          <a 
-            href="https://github.com/lamos22/Sexual-Repression-Calculator" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="flex items-center gap-2"
-          >
-            <Github className="w-4 h-4" />
-            GitHub仓库地址
-          </a>
-        </Button>
-      </div>
-    </SheetContent>
-  </Sheet>
-</div>
+
+            {/* 移动端菜单 - 只在小屏幕上显示 */}
+            <div className="md:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="sm">
+                    <Menu className="w-5 h-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right">
+                  <div className="flex flex-col gap-4 mt-4">
+                    <Button variant="ghost" size="sm" asChild className="justify-start">
+                      <Link to="/guide" className="flex items-center gap-2">
+                        <BookOpen className="w-4 h-4" />
+                        使用指南
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" size="sm" asChild className="justify-start">
+                      <Link to="/science" className="flex items-center gap-2">
+                        <FileText className="w-4 h-4" />
+                        科学依据
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" size="sm" asChild className="justify-start">
+                      <Link to="/history" className="flex items-center gap-2">
+                        <History className="w-4 h-4" />
+                        历史记录
+                      </Link>
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
             {/* 桌面端菜单 */}
             {/* <div className="flex items-center gap-1 sm:gap-4"> */}
             <div className="hidden md:flex items-center gap-4">
@@ -117,17 +104,6 @@ export default function Home() {
                   <span className="text-[10px] sm:text-sm">历史记录</span>
                 </Link>
               </Button>
-              {/* GitHub 链接 */}
-  <Button variant="ghost" size="sm" asChild>
-    <a 
-      href="https://github.com/banlanzs/Sexual-Repression-Calculator" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="flex items-center"
-    >
-      <Github className="w-4 h-4" />
-    </a>
-  </Button>
             </div>
           </div>
         </nav>
@@ -141,16 +117,16 @@ export default function Home() {
                 <Heart className="w-4 h-4 mr-2" />
                 基于科学研究的心理测评工具
               </Badge>
-              
+
               <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-psychology-primary via-psychology-secondary to-psychology-accent bg-clip-text text-transparent">
                 性压抑指数计算器
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-8 leading-relaxed max-w-3xl mx-auto">
                 专业的性心理健康自我评估工具，基于多个经过验证的心理测量量表，
                 帮助您科学地了解自己的性心理特征，促进性健康和亲密关系的发展。
               </p>
-              
+
               {/* 适应性评估亮点 */}
               <div className="bg-psychology-primary/5 border border-psychology-primary/20 rounded-xl p-6 mb-8 max-w-3xl mx-auto">
                 <div className="flex items-start gap-3">
@@ -175,7 +151,7 @@ export default function Home() {
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </Link>
-                
+
                 <Link to="/assessment?type=full">
                   <Button size="lg" variant="outline" className="border-psychology-primary text-psychology-primary hover:bg-psychology-primary hover:text-white transition-colors px-8 py-4 text-lg">
                     <Target className="w-5 h-5 mr-2" />
@@ -191,19 +167,19 @@ export default function Home() {
                   <div className="text-2xl font-bold text-psychology-primary">8-15</div>
                   <div className="text-sm text-muted-foreground">分钟快测</div>
                 </div>
-                
+
                 <div className="text-center p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-psychology-secondary/10">
                   <BarChart3 className="w-8 h-8 text-psychology-secondary mx-auto mb-2" />
                   <div className="text-2xl font-bold text-psychology-secondary">4</div>
                   <div className="text-sm text-muted-foreground">核心维度</div>
                 </div>
-                
+
                 <div className="text-center p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-psychology-accent/10">
                   <Shield className="w-8 h-8 text-psychology-accent mx-auto mb-2" />
                   <div className="text-2xl font-bold text-psychology-accent">100%</div>
                   <div className="text-sm text-muted-foreground">隐私保护</div>
                 </div>
-                
+
                 <div className="text-center p-4 bg-white/80 backdrop-blur-sm rounded-xl border border-psychology-success/10">
                   <Users className="w-8 h-8 text-psychology-success mx-auto mb-2" />
                   <div className="text-2xl font-bold text-psychology-success">科学</div>
@@ -452,7 +428,7 @@ export default function Home() {
                   基于科学研究的性压抑指数计算器，帮助您更好地了解自己的性心理健康。
                 </p>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold mb-3">评估工具</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -461,7 +437,7 @@ export default function Home() {
                   <li><Link to="/history" className="hover:text-psychology-primary">历史记录</Link></li>
                 </ul>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold mb-3">资源</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -470,7 +446,7 @@ export default function Home() {
                   <li><a href="#" className="hover:text-psychology-primary">隐私政策</a></li>
                 </ul>
               </div>
-              
+
               <div>
                 <h4 className="font-semibold mb-3">支持</h4>
                 <ul className="space-y-2 text-sm text-muted-foreground">
@@ -480,7 +456,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="border-t border-muted mt-8 pt-8 text-center text-sm text-muted-foreground">
               <p>© 2025 性压抑指数计算器. 仅供教育和自我了解使用，不能替代专业心理健康服务。</p>
             </div>
