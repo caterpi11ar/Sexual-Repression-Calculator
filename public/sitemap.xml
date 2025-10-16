@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage - English -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sexual.caterpillar-soft.com/" />
+  </url>
+  
+  <!-- Homepage - Chinese -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/zh/</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://sexual.caterpillar-soft.com/" />
+  </url>
+  
+  <!-- Assessment Page - English -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/assessment</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/assessment" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/assessment" />
+  </url>
+  
+  <!-- Assessment Page - Chinese -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/zh/assessment</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/assessment" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/assessment" />
+  </url>
+  
+  <!-- Guide Page - English -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/guide</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/guide" />
+  </url>
+  
+  <!-- Guide Page - Chinese -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/zh/guide</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/guide" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/guide" />
+  </url>
+  
+  <!-- Science Page - English -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/science</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/science" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/science" />
+  </url>
+  
+  <!-- Science Page - Chinese -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/zh/science</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/science" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/science" />
+  </url>
+  
+  <!-- History Page - English -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/history</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/history" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/history" />
+  </url>
+  
+  <!-- History Page - Chinese -->
+  <url>
+    <loc>https://sexual.caterpillar-soft.com/zh/history</loc>
+    <lastmod>2025-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://sexual.caterpillar-soft.com/zh/history" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://sexual.caterpillar-soft.com/history" />
+  </url>
+  
+</urlset>

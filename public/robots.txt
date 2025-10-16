@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://sexual.caterpillar-soft.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow sensitive areas (if any)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow all assessment pages
+Allow: /assessment
+Allow: /guide
+Allow: /science
+Allow: /history
+
+# Allow language variants
+Allow: /zh/
+Allow: /en/
